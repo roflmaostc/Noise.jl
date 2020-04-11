@@ -1,0 +1,8 @@
+name = "Noise"
+uuid = "81d43f40-5267-43b7-ae1c-8b967f377efa"
+authors = ["Felix Wechsler <fxw+github@mailbox.org"]
+version = "0.1.0"
+
+[deps]
+PoissonRandom = "e409e4f3-bfea-5376-8464-e040bb5c01ab"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
