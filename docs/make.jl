@@ -1,5 +1,5 @@
-using Documenter, Example
+using Documenter, Noise 
 
-makedocs(modules = [Example], sitename = "Example.jl")
+makedocs(modules = [Noise], sitename = "Noise.jl")
 
-deploydocs(repo = "github.com/JuliaLang/Example.jl.git")
+deploydocs(repo = "github.com/roflmaostc/Noise.jl.git")
