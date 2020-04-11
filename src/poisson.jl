@@ -1,4 +1,3 @@
-
 export poisson
 
 function poisson(X::AbstractArray, scaling=nothing; clip::Bool=false)
@@ -19,7 +18,7 @@ function poisson(X::AbstractArray, scaling=nothing; clip::Bool=false)
     end
 
     if clip
-        X_noisy = map(x -> max(0.0, min(1.0, x)), X_noisy)
+        clip_0_1!(X_noisy)
     end
     
     # round properly if integer
@@ -37,8 +36,8 @@ end
 
 Returns the array `X` affected by Poisson noise. 
 At every position the Poisson noise affects the intensity individually 
-where the values at the positions represent the expected value of the Poisson
-Distribution.
+and the values at the positions represent the expected value of the Poisson
+Distribution. 
 
 `scaling` is a optional argument to scale the highest value of the 
 array to `scaling`. This can be used if the maximum intensity
@@ -47,5 +46,6 @@ corresponds to a number of photons for example.
 `clip` is a keyword argument. If given, it clips the values to [0, 1]
 
 Please keep in mind that a Poisson Distribution returns integers therefore a image 
-with intensity [0, 1] and scaling=1.0 will only return integers.
+with intensity [0, 1] and scaling=1.0 will only return integers (0, 1, 2, ...).
 """
+poisson
