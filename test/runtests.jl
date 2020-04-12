@@ -35,10 +35,10 @@ img_rand = colorview(RGB, rand(Normed{UInt8, 8}, 3, 1000, 1000))
 
 
     # check images
-    @test abs(mean(channelview(salt_pepper(img_zeros, 1.0))) - 0.5)< 0.001 
+    @test abs(mean(channelview(salt_pepper_chn(img_zeros, 1.0))) - 0.5)< 0.001 
     #check that average is different to 0.5 if salt or pepper are not 1.0 or 0.0
-    @test abs(sum(channelview(salt_pepper(img_zeros, 0.1, pepper=1.0)) .-0.5)/100/100) > 0.001
-    @test abs(sum(channelview(salt_pepper(img_rand, 0.1, salt=0.0)) .-0.5)/100/100) > 0.001
+    @test abs(sum(channelview(salt_pepper_chn(img_zeros, 0.1, pepper=1.0)) .-0.5)/100/100) > 0.001
+    @test abs(sum(channelview(salt_pepper_chn(img_rand, 0.1, salt=0.0)) .-0.5)/100/100) > 0.001
 
 
 end
@@ -46,6 +46,7 @@ end
 
 
 @testset "Additive white Gaussian" begin
+    # check array with white gaussian noise
     @test abs(std(additive_white_gaussian(arr_zeros, 13.0)) - 13.0) < 0.1
     @test abs(mean(additive_white_gaussian(arr_zeros, 1.0))) < 0.05
     @test abs(mean(additive_white_gaussian(arr_zeros, 1.0, 10.0)) - 10) < 0.05
@@ -53,6 +54,12 @@ end
     @test mean(additive_white_gaussian(arr_zeros, 0.5, -1.0, clip=true)) >= 0
     @test mean(additive_white_gaussian(arr_zeros, 0.5, 2.0, clip=false)) > 1
     @test mean(additive_white_gaussian(arr_zeros, 0.5, 2.0, clip=true)) <= 1
+
+
+    # check images for gaussian white noise
+    @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros, 0.2, 0.3))) - 0.3) < 0.05
+
 end
 
 @testset "Poisson Noise" begin
