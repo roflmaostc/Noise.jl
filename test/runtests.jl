@@ -3,10 +3,10 @@ using Test
 
 using Random, Statistics
 
-#= Random.seed!(42) =#
+Random.seed!(42)
 tpl = (500, 500)
 arr = rand(Float64, tpl)
-arr_ones = 0.5 .* ones(tpl) 
+arr_ones = ones(tpl) 
 arr_zeros = zeros(tpl) 
 @testset "Salt and Pepper noise" begin
     #check 100% salt
@@ -40,6 +40,16 @@ end
     @test mean(additive_white_gaussian(arr_zeros, 0.5, -1.0, clip=true)) >= 0
     @test mean(additive_white_gaussian(arr_zeros, 0.5, 2.0, clip=false)) > 1
     @test mean(additive_white_gaussian(arr_zeros, 0.5, 2.0, clip=true)) <= 1
-
 end
 
+@testset "Poisson Noise" begin
+    #test std of poisson with clip and no clip
+    @test abs(std(poisson(arr_ones .* 13.0)) - sqrt(13)) < 0.01
+    @test abs(std(poisson(arr_ones .* 13.0, clip=true))) < 0.01
+    #test mean with clip and no clip
+    @test abs(mean(poisson(arr_ones .* 13.0)) - 13) < 0.05
+    @test abs(mean(poisson(arr_ones .* 13.0, clip=true)) - 1) < 0.001
+    #test mean with scaling
+    @test abs(mean(poisson(arr, 1000))-0.5) < 0.005
+    @test false
+end
