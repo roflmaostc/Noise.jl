@@ -7,6 +7,7 @@ Random.seed!(42)
 tpl = (500, 500)
 arr = rand(Float64, tpl)
 arr_ones = ones(tpl) 
+arr_rand_int = convert(Array{Int64}, map(x -> round(1000*x), arr))
 arr_zeros = zeros(tpl) 
 @testset "Salt and Pepper noise" begin
     #check 100% salt
@@ -51,4 +52,6 @@ end
     @test abs(mean(poisson(arr_ones .* 13.0, clip=true)) - 1) < 0.001
     #test mean with scaling
     @test abs(mean(poisson(arr, 1000))-0.5) < 0.005
+    #test mean int
+    @test abs(mean(poisson(arr_rand_int)))-500<1
 end
