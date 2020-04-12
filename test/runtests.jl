@@ -51,5 +51,4 @@ end
     @test abs(mean(poisson(arr_ones .* 13.0, clip=true)) - 1) < 0.001
     #test mean with scaling
     @test abs(mean(poisson(arr, 1000))-0.5) < 0.005
-    @test false
 end
