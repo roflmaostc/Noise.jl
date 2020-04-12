@@ -10,6 +10,7 @@
 Introduction
 ------------
 Julia package to add different kinds of noise to a digital signal like time series or images.
+This repository is work in progress.
 
 
 Installation
@@ -18,7 +19,7 @@ Installation
 
 
 ### Documentation
-
+Missing so far.
 
 
 
