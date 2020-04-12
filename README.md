@@ -4,6 +4,7 @@ Linux and macOS: [![Build Status](https://travis-ci.org/roflmaostc/Noise.jl.svg?
 
 
 [![codecov](https://codecov.io/gh/roflmaostc/Noise.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/roflmaostc/Noise.jl)
+[![Coverage Status](https://coveralls.io/repos/github/roflmaostc/Noise.jl/badge.svg)](https://coveralls.io/github/roflmaostc/Noise.jl)
 
 
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://JuliaLang.github.io/Example.jl/stable)

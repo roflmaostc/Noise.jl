@@ -1,4 +1,6 @@
 language: julia
+codecov: true
+coveralls: true
 
 os:
   - osx
@@ -18,9 +20,7 @@ notifications:
 #  - julia --project -e 'using Pkg; Pkg.build(); Pkg.test(; coverage=true)';
 
 after_success:
-  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())';
-  - bash <(curl -s https://codecov.io/bash)
-#  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())';
+  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder()); Codecov.submit(Codecov.process_folder())';
 
 jobs:
 # # Uncomment the following lines to allow failures on nightly julia
