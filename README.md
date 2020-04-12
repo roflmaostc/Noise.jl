@@ -3,7 +3,7 @@
 | **Documentation**                       | **Build Status**                          | **Code Coverage**               |
 |:---------------------------------------:|:-----------------------------------------:|:-------------------------------:|
 | [![][docs-stable-img]][docs-stable-url] | [![Build Status][travis-img]][travis-url] | [![][coveral-img]][coveral-url] |
-| [![][docs-latest-img]][docs-latest-url] |                                           | [![][codecov-img]][codecov-url] |
+| [![][docs-latest-img]][docs-latest-url] | [![Build Status][appvey-img]][appvey-url] | [![][codecov-img]][codecov-url] |
 
 
 
@@ -28,8 +28,13 @@ Installation
 [docs-stable-img]: 
 [docs-stable-url]:
 
+
+
 [travis-img]: https://travis-ci.org/roflmaostc/Noise.jl.svg?branch=master
 [travis-url]: https://travis-ci.org/github/roflmaostc/Noise.jl
+
+[appvey-img]: https://ci.appveyor.com/api/projects/status/gtaq06bbqu70bn75?svg=true
+[appvey-url]: https://ci.appveyor.com/project/roflmaostc/noise-jl
 
 [coveral-img]: https://coveralls.io/repos/github/roflmaostc/Noise.jl/badge.svg
 [coveral-url]: https://coveralls.io/github/roflmaostc/Noise.jl
