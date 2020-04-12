@@ -1,7 +1,8 @@
 using Noise
 using Test
-
-using Random, Statistics
+using Statistics
+using Random
+using ImageCore
 
 Random.seed!(42)
 tpl = (500, 500)
@@ -9,6 +10,8 @@ arr = rand(Float64, tpl)
 arr_ones = ones(tpl) 
 arr_rand_int = convert(Array{Int64}, map(x -> round(1000*x), arr))
 arr_zeros = zeros(tpl) 
+img_zeros = colorview(RGB, zeros(Normed{UInt8, 8}, 3, 1000, 1000)) 
+img_rand = colorview(RGB, rand(Normed{UInt8, 8}, 3, 1000, 1000)) 
 @testset "Salt and Pepper noise" begin
     #check 100% salt
     @test salt_pepper(arr, 1.0, salt_prob=1.0) == ones(tpl)
@@ -30,7 +33,16 @@ arr_zeros = zeros(tpl)
     @test abs(sum(salt_pepper(arr, 0.1, pepper=1.0) .-0.5)/100/100) > 0.001
     @test abs(sum(salt_pepper(arr, 0.1, salt=0.0) .-0.5)/100/100) > 0.001
 
+
+    # check images
+    @test abs(mean(channelview(salt_pepper(img_zeros, 1.0))) - 0.5)< 0.001 
+    #check that average is different to 0.5 if salt or pepper are not 1.0 or 0.0
+    @test abs(sum(channelview(salt_pepper(img_zeros, 0.1, pepper=1.0)) .-0.5)/100/100) > 0.001
+    @test abs(sum(channelview(salt_pepper(img_rand, 0.1, salt=0.0)) .-0.5)/100/100) > 0.001
+
+
 end
+
 
 
 @testset "Additive white Gaussian" begin
