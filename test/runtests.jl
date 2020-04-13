@@ -11,7 +11,9 @@ arr_ones = ones(tpl)
 arr_rand_int = convert(Array{Int64}, map(x -> round(1000*x), arr))
 arr_zeros = zeros(tpl) 
 img_zeros = colorview(RGB, zeros(Normed{UInt8, 8}, 3, 1000, 1000)) 
+img_zeros_gray = colorview(Gray, zeros(Normed{UInt8, 8}, 1000, 1000)) 
 img_rand = colorview(RGB, rand(Normed{UInt8, 8}, 3, 1000, 1000)) 
+img_rand_gray = colorview(Gray, rand(Normed{UInt8, 8}, 1000, 1000)) 
 @testset "Salt and Pepper noise" begin
     #check 100% salt
     @test salt_pepper(arr, 1.0, salt_prob=1.0) == ones(tpl)
@@ -59,6 +61,12 @@ end
     # check images for gaussian white noise
     @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros, 0.1, 0.5))) - 0.5) < 0.05
     @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros, 0.2, 0.3))) - 0.3) < 0.05
+
+    @test abs(mean(channelview(additive_white_gaussian(img_zeros, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(additive_white_gaussian(img_zeros, 0.2, 0.3))) - 0.3) < 0.05
+
+    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray, 0.2, 0.3))) - 0.3) < 0.05
 
 end
 
