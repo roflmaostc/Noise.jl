@@ -27,8 +27,8 @@ It has more detailed explanation of the methods used and the examples for data a
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-pink.svg 
 [docs-dev-url]: https://roflmaostc.github.io/Noise.jl/dev/ 
 
-[docs-stable-img]: https://img.shields.io/badge/docs-dev-blue.svg 
-[docs-stable-url]: https://img.shields.io/badge/docs-stable-darkgreen.svg 
+[docs-stable-img]: https://img.shields.io/badge/docs-stable-darkgreen.svg 
+[docs-stable-url]: https://roflmaostc.github.io/Noise.jl/stable/
 
 
 
