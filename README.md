@@ -3,7 +3,7 @@
 | **Documentation**                       | **Build Status**                          | **Code Coverage**               |
 |:---------------------------------------:|:-----------------------------------------:|:-------------------------------:|
 | [![][docs-stable-img]][docs-stable-url] | [![Build Status][travis-img]][travis-url] | [![][coveral-img]][coveral-url] |
-| [![][docs-latest-img]][docs-latest-url] | [![Build Status][appvey-img]][appvey-url] | [![][codecov-img]][codecov-url] |
+| [![][docs-dev-img]][docs-dev-url]       | [![Build Status][appvey-img]][appvey-url] | [![][codecov-img]][codecov-url] |
 
 
 
@@ -23,8 +23,8 @@ Missing so far.
 
 
 
-[docs-latest-img]: 
-[docs-latest-url]: 
+[docs-dev-img]:https://img.shields.io/badge/docs-dev-blue.svg 
+[docs-dev-url]:https://roflmaostc.github.io/Noise.jl/dev/ 
 
 [docs-stable-img]: 
 [docs-stable-url]:
