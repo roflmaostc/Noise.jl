@@ -19,15 +19,16 @@ Installation
 
 
 ### Documentation
-Missing so far.
+The complete manual of `Noise.j` is available at [the documentation page][docs-stable-url].
+It has more detailed explanation of the methods used and the examples for data arrays and images.
 
 
 
-[docs-dev-img]:https://img.shields.io/badge/docs-dev-blue.svg 
-[docs-dev-url]:https://roflmaostc.github.io/Noise.jl/dev/ 
+[docs-dev-img]: https://img.shields.io/badge/docs-dev-pink.svg 
+[docs-dev-url]: https://roflmaostc.github.io/Noise.jl/dev/ 
 
-[docs-stable-img]: 
-[docs-stable-url]:
+[docs-stable-img]: https://img.shields.io/badge/docs-dev-blue.svg 
+[docs-stable-url]: https://img.shields.io/badge/docs-stable-darkgreen.svg 
 
 
 
