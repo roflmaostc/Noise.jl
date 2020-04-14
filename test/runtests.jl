@@ -2,10 +2,10 @@ using Noise
 using Test
 using Statistics
 using Random
-using ImageCore
+using Images, ImageCore
 
 Random.seed!(42)
-tpl = (500, 500)
+tpl = (1000, 1000)
 arr = rand(Float64, tpl)
 arr_ones = ones(tpl) 
 arr_rand_int = convert(Array{Int64}, map(x -> round(1000*x), arr))
@@ -14,7 +14,11 @@ img_zeros = colorview(RGB, zeros(Normed{UInt8, 8}, 3, 1000, 1000))
 img_zeros_gray = colorview(Gray, zeros(Normed{UInt8, 8}, 1000, 1000)) 
 img_rand = colorview(RGB, rand(Normed{UInt8, 8}, 3, 1000, 1000)) 
 img_rand_gray = colorview(Gray, rand(Normed{UInt8, 8}, 1000, 1000))
+img_12 = colorview(RGB, 0.5 .* ones(Normed{UInt8, 8}, 3, 1000, 1000)) 
+img_12_gray= colorview(Gray, 0.5 .* ones(Normed{UInt8, 8}, 1000, 1000)) 
 
+img = colorview(RGB, ones(Normed{UInt8, 8}, 3, 1000, 1000)) 
+img_gray= colorview(Gray,  ones(Normed{UInt8, 8}, 1000, 1000)) 
 
 
 @testset "Clip functions" begin
@@ -118,7 +122,19 @@ end
     @test abs(mean(poisson(arr_ones .* 13.0)) - 13) < 0.05
     @test abs(mean(poisson(arr_ones .* 13.0, clip=true)) - 1) < 0.001
     #test mean with scaling
-    @test abs(mean(poisson(arr, 1000))-0.5) < 0.005
+    @test abs(mean(poisson(arr, 1000.0))-0.5) < 0.005
     #test mean int
     @test abs(mean(poisson(arr_rand_int)))-500<1
+
+
+    @test abs(std(channelview(poisson(img_12_gray, 100.0))) - 0.5 .* sqrt(100.0)./100.0) < 0.005
+    @test abs(std(channelview(poisson(img_12, 100.0))) - 0.5 .* sqrt(100.0)./100.0) < 0.005
+    @test abs(std(channelview(poisson(img_12_gray, 4200.0))) - 0.3 .* sqrt(4200.0)./4200.0) < 0.005
+    @test abs(std(channelview(poisson(img_12, 4200.0))) - 0.3 .* sqrt(4200.0)./4200.0) < 0.005
+
+
+    @test abs(std(channelview(poisson(img_gray, 10000.0, clip=true))))< 0.02
+    @test abs(std(channelview(poisson(img, 10000.0, clip=true)))) < 0.02
+    @test abs(mean(channelview(poisson(img_gray, 10000.0, clip=true)))-1.0)< 0.02
+    @test abs(mean(channelview(poisson(img, 10000.0, clip=true))) -1.0) < 0.02
 end

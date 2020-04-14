@@ -3,10 +3,25 @@ export salt_pepper, salt_pepper_chn
  # function which decides whether salt or pepper
 salt_or_pepper(salt_prob, salt, pepper) = rand() < salt_prob ? salt : pepper
 
+"""
+    salt_pepper(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob])
 
- # salt and pepper for arbitrary arrays
-function _salt_pepper(X, prob, salt_prob, salt, pepper)
-  
+Returns array `X` affected by salt and pepper noise.
+`X` can be an array or an RGB or Gray image
+`prob` is a optional argument for the probability that a pixel will be affected by the noise.
+`salt_prob` is a keyword argument representing the probability for salt noise. 
+The probability for pepper noise is therefore 1-`salt_prob`.
+`salt` is a keyword argument for specifying the value of salt noise.
+`pepper` is a keyword argument for specifying the value of pepper noise.
+"""
+salt_pepper
+
+ # for arbitrary array, RGB and Gray images
+function salt_pepper(X::AbstractArray{P}, prob::T=0.1;
+        salt_prob::T=0.5,
+        salt::B=1.0, pepper::B=0.0) where {T, B <: Number, P <: Union{V, RGB, Gray} where V}
+
+
     # copy array
     X_noisy = copy(X)
 
@@ -45,39 +60,6 @@ function _salt_pepper(X, prob, salt_prob, salt, pepper)
     return X_noisy
 end
 
-"""
-    salt_pepper(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob])
-
-Returns array `X` affected by salt and pepper noise.
-`X` can be an array or an RGB or Gray image
-`prob` is a optional argument for the probability that a pixel will be affected by the noise.
-`salt_prob` is a keyword argument representing the probability for salt noise. 
-The probability for pepper noise is therefore 1-`salt_prob`.
-`salt` is a keyword argument for specifying the value of salt noise.
-`pepper` is a keyword argument for specifying the value of pepper noise.
-"""
-salt_pepper
-
- # for arbitrary array
-function salt_pepper(X::AbstractArray{P, N}, prob::T=0.1;
-        salt_prob::T=0.5,
-        salt::B=1.0, pepper::B=0.0) where {T, P, N, B <: Number}
-    return _salt_pepper(X, prob, salt_prob, salt, pepper)
-end
-
- # for RGB images
-function salt_pepper(X::AbstractArray{RGB{Normed{UInt8, 8}}, N}, prob::T=0.1;
-        salt_prob::T=0.5,
-        salt::B=1.0, pepper::B=0.0) where {T <: Number, P, B, N}
-    return _salt_pepper(X, prob, salt_prob, salt, pepper)
-end
-
- # for Gray images
-function salt_pepper(X::AbstractArray{Gray{Normed{UInt8, 8}}, N}, prob::T=0.1;
-        salt_prob::T=0.5,
-        salt::B=1.0, pepper::B=0.0) where {T <: Number, P, B, N}
-    return _salt_pepper(X, prob, salt_prob, salt, pepper)
-end
 
 
 

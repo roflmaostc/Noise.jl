@@ -1,32 +1,77 @@
 export poisson
 
-function poisson(X::AbstractArray, scaling=nothing; clip::Bool=false)
-    type_arr = eltype(X[1])
-   
-    # if scaling is not provided we simply use the values
-    if scaling == nothing
-        X_noisy = map(x -> pois_rand(x), X)
-
-    # if scaling is provided we scale the highest value to scaling
+function noise(x, scaling, max_intens)
+    if scaling == Nothing
+        return pois_rand(x)
     else
-        scaling = float(scaling)
-        max_intens = float(maximum(X))
+        return pois_rand(x * scaling / max_intens) * max_intens / scaling
+    end
+end
+
+
+function poisson(X::Union{AbstractArray{Gray{T}}, AbstractArray{RGB{T}}, AbstractArray{T}}, 
+        scaling=Nothing; clip=false) where {P, T}
+
+    # depending on the element type we either copy or create a new array
+    if eltype(X) <: Union{Gray, RGB}
+        X_noisy = copy(X)
+        # if it's a normed type we should clip it
+        if T <: Normed
+            clip = true
+        end
+    else
+        X_noisy = zeros(size(X))
+    end
+
+
+    if eltype(X) <: RGB
+        e_type = eltype(red(X[1]))
+        max_intens = max_rgb(X)
+    elseif eltype(X) <: Gray
+        e_type = eltype(gray(X[1]))
+        max_intens = maximum(X)
+    else
+        max_intens = maximum(X)
+    end
+    
+    
+
         # scale image to max_intensity and apply poisson noise
         # after Poisson noise scale it back
-        X_noisy = max_intens ./scaling .*
-            map(x -> pois_rand(x / max_intens * scaling), X)
+    #= print(noise(0.5), "\n") =#
+    if eltype(X) <: RGB
+        for i in eachindex(X)
+        # for RGB each channel independently
+            a = X[i]
+            if clip
+                X_noisy[i] = RGB(clip_v(noise(red(a), scaling, max_intens)),
+                                 clip_v(noise(green(a), scaling, max_intens)),
+                                 clip_v(noise(blue(a), scaling, max_intens)))
+            else
+                X_noisy[i] = RGB(noise(red(a), scaling, max_intens),
+                                 noise(green(a), scaling, max_intens),
+                                 noise(blue(a), scaling, max_intens))
+            end
+        end
+    # for Gray
+    elseif eltype(X) <: Gray
+        for i in eachindex(X)
+            if clip
+                X_noisy[i] = Gray(clip_v(noise(gray(X[i]), scaling, max_intens)))
+            else
+                X_noisy[i] = Gray(noise(gray(X[i]), scaling, max_intens))
+            end
+        end
+    else
+        for i in eachindex(X)
+            if clip
+                X_noisy[i] = clip_v(noise(X[i], scaling, max_intens))
+            else
+                X_noisy[i] = noise(X[i], scaling, max_intens)
+            end
+        end
     end
 
-    if clip
-        clip_0_1!(X_noisy)
-    end
-    
-    # round properly if integer
-    if type_arr <: Integer
-        X_noisy = map(x -> round(x), X_noisy)
-    end
-    X_noisy = convert(Array{type_arr}, X_noisy)
-    
     return X_noisy
 end
 
