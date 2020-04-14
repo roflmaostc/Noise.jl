@@ -27,6 +27,7 @@ end
 
 
 
+
  """
     additive_white_gaussian(X; clip=false[, σ=1.0, μ=0.0])
 
@@ -40,8 +41,8 @@ If `X` is a RGB or Gray image, then the values will be automatically clipped and
 additive_white_gaussian
 
  # adds white gaussian noise to each pixel individually
-function additive_white_gaussian(X::AbstractArray{P, N}, σ=0.1, μ=0.0; 
-        clip=false) where {P, N}
+function additive_white_gaussian(X::AbstractArray{P}, σ=0.1, μ=0.0; 
+        clip=false) where {P}
 
     # copy if input
     X_noisy = zeros(size(X)) 
@@ -60,11 +61,11 @@ end
 
 
  # additive_white_gaussian for Gray images
-function additive_white_gaussian(X::AbstractArray{Gray{Normed{UInt8,8}},2}, σ=0.1, μ=0.0; clip=false)
+function additive_white_gaussian(X::AbstractArray{Gray{Normed{UInt8,8}}}, σ=0.1, μ=0.0; clip=false)
     return _awg_rgb_gray(X, σ, μ)
 end
 
-function additive_white_gaussian(X::AbstractArray{RGB{Normed{UInt8,8}},2}, σ=0.1, μ=0.0; clip=false)
+function additive_white_gaussian(X::AbstractArray{RGB{Normed{UInt8,8}}}, σ=0.1, μ=0.0; clip=false)
     return _awg_rgb_gray(X, σ, μ)
 end
 
@@ -81,20 +82,18 @@ The noise therefore acts roughly as intensity - but not color - changing noise.
 """
 additive_white_gaussian_chn
  # adds white gaussian noise to each pixel but for each channel the same amount
-function additive_white_gaussian_chn(X::AbstractArray{C, 2}, σ::T=0.1, μ::T=0.0) where {P<:Number, T<:Number, C <: RGB}
+function additive_white_gaussian_chn(X::AbstractArray{C}, σ::T=0.1, μ::T=0.0) where {P<:Number, T<:Number, C <: RGB}
     
     # copy of input
     X_noisy = copy(X)
     
     # all channels of one pixel are affected the same
-    for i = 1:size(X)[1]
-        for j = 1:size(X)[2]
-                noise = μ .+ σ .* randn()
-                a = X_noisy[i, j]
-                X_noisy[i, j] = RGB(clip_v(red(a) + noise), 
-                                    clip_v(green(a) + noise), 
-                                    clip_v(blue(a) + noise))
-        end
+    for i in eachindex(X_noisy)
+            noise = μ .+ σ .* randn()
+            a = X_noisy[i]
+            X_noisy[i] = RGB(clip_v(red(a) + noise), 
+                                clip_v(green(a) + noise), 
+                                clip_v(blue(a) + noise))
     end
 
     return X_noisy

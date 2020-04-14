@@ -41,23 +41,41 @@ end
     #check 100% pepper with custom value
     @test salt_pepper(arr, 1.0, salt_prob=0.0, pepper=0.63) == 0.63 .* ones(tpl)
     #check average salt and pepper roughly 
-    @test abs(sum(salt_pepper(arr, 1.0) .-0.5)/100/100) < 0.1
+    @test abs(mean(salt_pepper(arr, 1.0) .-0.5)) < 0.1
     #check that average salt and pepper are roughly 0.5 
-    @test abs(sum(salt_pepper(arr, 0.1) .-0.5)/100/100) < 0.05
+    @test abs(mean(salt_pepper(arr, 0.1) .-0.5)) < 0.05
     
-    @test abs(sum(salt_pepper(arr, 0.1, salt_prob=1.0) .-0.5)/100/100) > 0.001
-    @test abs(sum(salt_pepper(arr, 0.1, salt_prob=0.0) .-0.5)/100/100) > 0.001
+    @test abs(mean(salt_pepper(arr, 0.1, salt_prob=1.0) .-0.5)) > 0.001
+    @test abs(mean(salt_pepper(arr, 0.1, salt_prob=0.0) .-0.5)) > 0.001
 
     #check that average is different to 0.5 if salt or pepper are not 1.0 or 0.0
-    @test abs(sum(salt_pepper(arr, 0.1, pepper=1.0) .-0.5)/100/100) > 0.001
-    @test abs(sum(salt_pepper(arr, 0.1, salt=0.0) .-0.5)/100/100) > 0.001
+    @test abs(mean(salt_pepper(arr, 0.1, pepper=1.0) .-0.5)) > 0.001
+    @test abs(mean(salt_pepper(arr, 0.1, salt=0.0) .-0.5)) > 0.001
 
 
-    # check images
+    # check images chn
     @test abs(mean(channelview(salt_pepper_chn(img_zeros, 1.0))) - 0.5)< 0.001 
     #check that average is different to 0.5 if salt or pepper are not 1.0 or 0.0
     @test abs(sum(channelview(salt_pepper_chn(img_zeros, 0.1, pepper=1.0)) .-0.5)/100/100) > 0.001
     @test abs(sum(channelview(salt_pepper_chn(img_rand, 0.1, salt=0.0)) .-0.5)/100/100) > 0.001
+
+    # check RGB images
+    @test abs(mean(channelview(salt_pepper(img_zeros, 1.0))) - 0.5)< 0.001 
+    #check that average is different to 0.5 if salt or pepper are not 1.0 or 0.0
+    @test abs(mean(channelview(salt_pepper(img_zeros, 0.1, pepper=1.0)) .-0.5)) > 0.001
+    @test abs(mean(channelview(salt_pepper(img_rand, 0.1, salt=0.0)) .-0.5)) > 0.001
+    # check std
+    @test abs(std(channelview(salt_pepper(img_rand, 1.0, salt=0.0, pepper=0.5))) -0.25) < 0.001
+    @test abs(std(channelview(salt_pepper(img_rand, 1.0, salt=0.4, pepper=0.5))) -0.05) < 0.001
+    
+    # check gray images
+    @test abs(mean(channelview(salt_pepper(img_zeros_gray, 1.0))) - 0.5)< 0.001 
+    #check that average is different to 0.5 if salt or pepper are not 1.0 or 0.0
+    @test abs(mean(channelview(salt_pepper(img_zeros_gray, 0.1, pepper=1.0)) .-0.5)) > 0.001
+    @test abs(mean(channelview(salt_pepper(img_rand_gray, 0.1, salt=0.0)) .-0.5)) > 0.001
+    # check std
+    @test abs(std(channelview(salt_pepper(img_rand_gray, 1.0, salt=0.0, pepper=0.5))) -0.25) < 0.001
+    @test abs(std(channelview(salt_pepper(img_rand_gray, 1.0, salt=0.4, pepper=0.5))) -0.05) < 0.001
 
 
 end
