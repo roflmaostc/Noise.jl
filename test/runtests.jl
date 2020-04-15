@@ -160,15 +160,15 @@ end
     @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros_float, 0.1, 0.5))) - 0.5) < 0.05
     @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros_float, 0.2, 0.3))) - 0.3) < 0.05
 
-    # check mean offset with clip
+    # check mean offset, now it's not clipped
     @test abs(mean(channelview(additive_white_gaussian(img_zeros_float, 0.1, 0.5))) - 0.5) < 0.05
     @test abs(mean(channelview(additive_white_gaussian(img_zeros_float, 0.2, 0.3))) - 0.3) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_float, 0.0, 10))) - 1.0) < 0.005
+    @test abs(mean(channelview(additive_white_gaussian(img_zeros_float, 0.0, 10))) - 10.0) < 0.005
     
     # check mean offet with gray
     @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray_float, 0.1, 0.5))) - 0.5) < 0.05
     @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray_float, 0.2, 0.3))) - 0.3) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray_float, 0.0, 10))) - 1.0) < 0.005
+    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray_float, 0.0, 10))) - 10.0) < 0.005
 
 
 end
