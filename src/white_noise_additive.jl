@@ -1,8 +1,51 @@
 export additive_white_gaussian, additive_white_gaussian_chn
 
 
+ # core function for additive white_gaussian core for RGB
+function additive_white_gaussian_core(a::RGB, σ, μ, clip)
+    if clip
+        return RGB(clip_v(red(a) .+ μ .+ σ .* randn()),
+                   clip_v(green(a) .+ μ .+ σ .* randn()),
+                   clip_v(blue(a) .+ μ .+ σ .* randn()))
+    else
+        return RGB(red(a) .+ μ .+ σ .* randn(),
+                   green(a) .+ μ .+ σ .* randn(),
+                   blue(a) .+ μ .+ σ .* randn())
+    end
+end
 
- """
+ # core function for additive white_gaussian core for Gray
+function additive_white_gaussian_core(a::Gray, σ, μ, clip)
+    if clip
+        return Gray(clip_v(gray(a) .+ μ .+ σ .* randn()))
+    else
+        return Gray(gray(a) .+ μ .+ σ .* randn())
+    end
+end
+
+ # core function for additive white_gaussian core for differen types
+function additive_white_gaussian_core(a, σ, μ, clip)
+    if clip 
+        return clip_v(a .+ μ .+ σ .* randn())
+    else
+        return a .+ μ .+ σ .* randn()
+    end
+end
+
+
+function additive_white_gaussian(X, σ=0.1, μ=0.0; clip=false)
+    # clip will be set to true if data type of array is somehow normed
+    X_noisy, clip = prepare_array_clip(X, clip)
+    
+    # iterate over pixels
+    for i in eachindex(X)
+        X_noisy[i] = additive_white_gaussian_core(X[i], σ, μ, clip)
+    end
+    
+    return X_noisy
+
+end
+"""
     additive_white_gaussian(X; clip=false[, σ=1.0, μ=0.0])
 
 Returns the array `X` with Gaussian noise (standard deviation `σ` and mean `μ`) 
@@ -14,78 +57,10 @@ If `X` is a RGB{Normed} or Gray{Normed} image, then the values will be automatic
 """
 additive_white_gaussian
 
- # adds white gaussian noise to each pixel individually
-function additive_white_gaussian(X::AbstractArray{P}, σ=0.1, μ=0.0; 
-        clip=false) where {P}
-
-    # copy if input
-    X_noisy = zeros(size(X)) 
-    # iterate over all values
-    for i in eachindex(X)
-        X_noisy[i] = X[i] .+ μ .+ σ .* randn()
-    end
-
-    # if clip then clip values to [0, 1]
-    if clip
-        clip_0_1!(X_noisy)
-    end
-
-    return X_noisy
-end
 
 
- # additive_white_gaussian for Gray and RGB images
-function additive_white_gaussian(X::Union{AbstractArray{RGB{P}}, AbstractArray{Gray{P}}}, 
-        σ=0.1, μ=0.0; clip=false) where {P}
-    if P <: Normed
-        clip = true
-    end
-    # copy input
-    X_noisy = copy(X)
-    # iterate over pixels
-    for i in eachindex(X)
-        # for RGB each channel
-        if eltype(X) <: RGB
-            a = X[i]
-            if clip
-                X_noisy[i] = RGB(clip_v(red(a) .+ μ .+ σ .* randn()),
-                                 clip_v(green(a) .+ μ .+ σ .* randn()),
-                                 clip_v(blue(a) .+ μ .+ σ .* randn()))
-            else
-                X_noisy[i] = RGB(red(a) .+ μ .+ σ .* randn(),
-                                 green(a) .+ μ .+ σ .* randn(),
-                                 blue(a) .+ μ .+ σ .* randn())
-            end
-        # for Gray
-        else 
-            if clip
-                X_noisy[i] = Gray(clip_v(gray(X[i]) .+ μ .+ σ .* randn()))
-            else
-                X_noisy[i] = Gray(gray(X[i]) .+ μ .+ σ .* randn())
-            end
-        end
-    end
-    
-    return X_noisy
-
-end
-
-
-
-"""
-    additive_white_gaussian_chn(X[, σ=1.0, μ=0.0])
-
-Returns the RGB image `X` with Gaussian noise (standard deviation `σ` and mean `μ`) 
-added pixelwise. However, every channel of one pixel receives the same amount of noise.
-The noise therefore acts roughly as intensity - but not color - changing noise.
-`σ` and `μ` are optional arguments representing standard deviation and mean of Gaussian.
-
-"""
-additive_white_gaussian_chn
  # adds white gaussian noise to each pixel but for each channel the same amount
-function additive_white_gaussian_chn(X::AbstractArray{C}, 
-            σ::T=0.1, μ::T=0.0) where {P<:Number, T<:Number, C <: RGB}
-    
+function additive_white_gaussian_chn(X::AbstractArray{<:RGB}, σ=0.1, μ=0.0)
     # copy of input
     X_noisy = copy(X)
     
@@ -97,6 +72,15 @@ function additive_white_gaussian_chn(X::AbstractArray{C},
                                 clip_v(green(a) + noise), 
                                 clip_v(blue(a) + noise))
     end
-
     return X_noisy
 end
+"""
+    additive_white_gaussian_chn(X[, σ=1.0, μ=0.0])
+
+Returns the RGB image `X` with Gaussian noise (standard deviation `σ` and mean `μ`) 
+added pixelwise. However, every channel of one pixel receives the same amount of noise.
+The noise therefore acts roughly as intensity - but not color - changing noise.
+`σ` and `μ` are optional arguments representing standard deviation and mean of Gaussian.
+
+"""
+additive_white_gaussian_chn

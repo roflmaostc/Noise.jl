@@ -48,22 +48,13 @@ function poisson_core(a, max_intens, scaling, clip)
     end
 end
 
- # prepares the noise array whether it is copied
- # if the datatype is Normed, we must clip
-function prepare_poisson(X::Union{AbstractArray{Gray{T}}, AbstractArray{RGB{T}}}, clip) where T
-    clip = T <: Normed ? true : clip
-    return similar(X), clip
-end
-
- # for arbitrary arrays we simply copy
-function prepare_poisson(X, clip)
-    return zeros(size(X)), clip
-end
-
 function poisson(X::AbstractArray, scaling=Nothing; clip=false)
     
-    X_noisy, clip = prepare_poisson(X, clip)
+    X_noisy, clip = prepare_array_clip(X, clip)
     
+    #= if scaling != Nothing =#
+    #=     scaling = float(scaling) =#
+    #= end =#
     max_intens = mymax(X)
     
     for i in eachindex(X)
@@ -72,7 +63,6 @@ function poisson(X::AbstractArray, scaling=Nothing; clip=false)
 
     return X_noisy
 end
-
 """
     poisson(X; scaling=1, clip=false)
 
