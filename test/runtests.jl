@@ -22,8 +22,9 @@ img_12_gray= colorview(Gray, 0.5 .* ones(Normed{UInt8, 8}, 1000, 1000))
 img = colorview(RGB, ones(Normed{UInt8, 8}, 3, 1000, 1000)) 
 img_gray= colorview(Gray,  ones(Normed{UInt8, 8}, 1000, 1000)) 
 
-img_zeros_float = colorview(RGB, zeros(Normed{UInt8, 8}, 3, 1000, 1000)) 
-img_zeros_gray_float = colorview(Gray, zeros(Normed{UInt8, 8}, 1000, 1000)) 
+
+img_zeros_float = colorview(RGB, zeros(Float64, 3, 1000, 1000)) 
+img_zeros_gray_float = colorview(Gray, zeros(Float64, 1000, 1000)) 
 
 img_rand_float = colorview(RGB, rand(Float64, 3, 1000, 1000)) 
 img_rand_gray_float = colorview(Gray, rand(Float64, 1000, 1000))
@@ -97,7 +98,7 @@ end
     @test abs(std(channelview(salt_pepper(img_rand_gray, 1.0, salt=0.4, pepper=0.5))) -0.05) < 0.001
 
 
-    # check images chn
+    # check images but with float
     @test abs(mean(channelview(salt_pepper_chn(img_zeros_float, 1.0))) - 0.5)< 0.001 
     #check that average is different to 0.5 if salt or pepper are not 1.0 or 0.0
     @test abs(sum(channelview(salt_pepper_chn(img_zeros_float, 0.1, pepper=1.0)) .-0.5)/100/100) > 0.001
@@ -152,6 +153,8 @@ end
     @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray, 0.2, 0.3))) - 0.3) < 0.05
     @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray, 0.0, 10))) - 1.0) < 0.005
 
+    
+    # check the same but with float images
     # check images for gaussian white noise
     # check mean offset channelwise
     @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros_float, 0.1, 0.5))) - 0.5) < 0.05
