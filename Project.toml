@@ -9,6 +9,13 @@ ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 PoissonRandom = "e409e4f3-bfea-5376-8464-e040bb5c01ab"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
+[compat]
+ColorTypes = ">=0.9.1"
+ImageCore = ">=0.8.12"
+PoissonRandom = ">=0.4.0"
+Images = ">=0.22.0"
+julia = ">=1.0"
+
 [extras]
 Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
@@ -16,11 +23,3 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
 test = ["Test", "Statistics", "Images"]
-
-
-[compat]
-julia = ">=1.0"
-ColorTypes = ">=0.9.1"
-ImageCore = ">=0.8.12"
-PoissonRandom = ">=0.4.0"
-Images = ">=0.22.0"
