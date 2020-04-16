@@ -69,12 +69,12 @@ Therefore the midle image has a color noise, the noise in the image in the right
 
 Gray image with 10% noise| RGB image with channelwise noise| RGB image with pixelwise noise 
 |:---------------------------------------------- |:----------------------------------------------- |:------------------------------------------------------- |
-| ![](../../build/images/sp_img_gray_noise.png) | ![](../../build/images/sp_img_color_noise.png) | ![](../../build/images/sp_img_color_channel_noise.png) |
+| ![](../images/sp_img_gray_noise.png) | ![](../images/sp_img_color_noise.png) | ![](../images/sp_img_color_channel_noise.png) |
 
 
 |Gray image with 30% salt or pepper                    | Gray image with 10% salt                            | Gray image with 10% gray                       | 
 |:---------------------------------------------------- |:--------------------------------------------------- |:---------------------------------------------- |
-| ![](../../build/images/sp_img_gray_noise_heavy.png)  | ![](../../build/images/sp_img_gray_noise_white.png) | ![](../../build/images/sp_gray_noise_gray.png) |
+| ![](../images/sp_img_gray_noise_heavy.png)  | ![](../images/sp_img_gray_noise_white.png) | ![](../images/sp_gray_noise_gray.png) |
 
 
 ### 1D Arrays 
@@ -95,4 +95,4 @@ savefig("../images/sp_series.png") # hide
 nothing # hide
 ```
 As you can see we are able to introduce salt and pepper noise the same way to 1D arrays.
-![](../../build/images/sp_series.png)
+![](../images/sp_series.png)

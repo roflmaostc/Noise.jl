@@ -2,7 +2,7 @@ using Documenter, Noise
 
 using Images, TestImages, ImageIO
 
-DocMeta.setdocmeta!(Noise, :DocTestSetup, :(using Noise,Images, TestImages, ImageIO); recursive=true)
+DocMeta.setdocmeta!(Noise, :DocTestSetup, :(using Noise, Images, TestImages, ImageIO); recursive=true)
 makedocs(modules = [Noise], 
          sitename = "Noise.jl", 
          pages = ["index.md",

@@ -49,7 +49,7 @@ As it can be seen clearly, the image with more measured photons, is less affecte
 
 | Grayscale with 10 photons at the brightest value | Grayscale image 1000 photons at the brightest value   | RGB image with 100 photons at the brightest value       |
 |:------------------------------------------------ |:----------------------------------------------------- |:------------------------------------------------------- |
-| ![](../../build/images/pois_img_gray_noise.png)  | ![](../../build/images/pois_img_gray_noise_heavy.png) | ![](../../build/images/pois_img_color_noise.png)        |
+| ![](../images/pois_img_gray_noise.png)  | ![](../images/pois_img_gray_noise_heavy.png) | ![](../images/pois_img_color_noise.png)        |
 
 ### 1D Arrays 
 Poisson noise cannot handle negative occurences by design, therefore the 1D array is a y-shifted sinus curve.
@@ -70,4 +70,4 @@ nothing # hide
 
 We notice that amount of noise is, in contradiction to additive noise, higher for higher intensity values.
 However, the signal-to-noise ratio is better for higher intensity values. This was visible in the Lena image.
-![](../../build/images/pois_series.png)
+![](../images/pois_series.png)

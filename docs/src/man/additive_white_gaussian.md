@@ -70,12 +70,12 @@ Therefore the midle image has a color noise, the noise in the image in the right
 
 Grayscale image noise| All channels of a pixel have different noise| All channels of a pixel have the same noise 
 |:---------------------------------------------- |:----------------------------------------------- |:------------------------------------------------------- |
-| ![](../../build/images/awg_img_gray_noise.png) | ![](../../build/images/awg_img_color_noise.png) | ![](../../build/images/awg_img_color_channel_noise.png) |
+| ![](../images/awg_img_gray_noise.png) | ![](../images/awg_img_color_noise.png) | ![](../images/awg_img_color_channel_noise.png) |
 
 
 |Gray image with heavy noise                           | Gray image intensity gain noise                          | Float Image with intensity reducing noise 
 |:---------------------------------------------------- |:-------------------------------------------------------- |:--------------------------------------------|
-| ![](../../build/images/awg_img_gray_noise_heavy.png) | ![](../../build/images/awg_img_gray_noise_intensity.png) | ![](../../build/images/awg_float_noise.png) |
+| ![](../images/awg_img_gray_noise_heavy.png) | ![](../images/awg_img_gray_noise_intensity.png) | ![](../images/awg_float_noise.png) |
 
 
 ### 1D Arrays 
@@ -98,4 +98,4 @@ savefig("../images/awg_series.png") # hide
 nothing # hide
 ```
 As you can see we are able to introduce white gaussian noise the same way to 1D arrays. The green curved is shifted downwards because of the negative $\mu$.
-![](../../build/images/awg_series.png)
+![](../images/awg_series.png)
