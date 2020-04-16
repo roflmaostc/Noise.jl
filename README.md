@@ -54,16 +54,16 @@ save("images/img_gray_sp_index.png", img_gray_sp) # hide
 nothing # hide
 ```
 
-The left gray image is affected by Gaussian noise with a standard deviation of $\sigma = 0.1$. 
+The left gray image is affected by Gaussian noise with a standard deviation of ![\sigma = 0.1](https://render.githubusercontent.com/render/math?math=%5Csigma%20%3D%200.1). 
 In the image in the middle, we added Gaussian noise with the same standard deviation but to each individual color pixel giving the fluctuating color look.
-The image on the right is affected by salt and pepper noise by a probability of $10\%$
+The image on the right is affected by salt and pepper noise by a probability of 10%.
 
 | Gray image with noise               | RGB image with noise                  | Gray image with salt and pepper noise |
 |:------------------------------------|:------------------------------------- |:--------------------------------------|
 |![](images/img_gray_gauss_index.png) | ![](images/img_color_gauss_index.png) | ![](images/img_gray_sp_index.png)     |
 
 
-This 1D array is affected by a additive gaussian white noise ($\sigma=0.1, \mu=0$).
+This 1D array is affected by a additive gaussian white noise (![\sigma=0.1, \mu=0](https://render.githubusercontent.com/render/math?math=%5Csigma%3D0.1%2C%20%5Cmu%3D0)).
 ![](images/series_index.png)
 
 
