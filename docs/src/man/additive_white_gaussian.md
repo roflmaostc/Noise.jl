@@ -91,9 +91,9 @@ y_noise = additive_white_gaussian(y, 0.05)
 # heavy noise and mean shift
 y_noise_2 = additive_white_gaussian(y, 0.2, -0.4)
 
-plot(x,y)
-plot!(x, y_noise)
-plot!(x, y_noise_2)
+plot(x,y);
+plot!(x, y_noise);
+plot!(x, y_noise_2);
 savefig("../images/awg_series.png") # hide
 nothing # hide
 ```

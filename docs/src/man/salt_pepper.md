@@ -88,9 +88,9 @@ y = sin.(x)
 y_noise = salt_pepper(y, 0.05, pepper=-1.0)
 y_noise_2 = salt_pepper(y, 0.2, pepper=-0.5, salt=0.5)
 
-plot(x,y)
-plot!(x, y_noise)
-plot!(x, y_noise_2)
+plot(x,y);
+plot!(x, y_noise);
+plot!(x, y_noise_2);
 savefig("../images/sp_series.png") # hide
 nothing # hide
 ```

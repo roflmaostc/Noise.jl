@@ -34,8 +34,8 @@ y = sin.(x)
 y_noise = additive_white_gaussian(y, 0.1)
 
 
-plot(x,y) # hide
-plot!(x, y_noise) # hide
+plot(x,y); # hide
+plot!(x, y_noise); # hide
 savefig("images/series_index.png") # hide
 
 save("images/img_gray_gauss_index.png", img_gray_gauss) # hide

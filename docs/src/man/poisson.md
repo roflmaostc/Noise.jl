@@ -62,8 +62,8 @@ y = 1 .* sin.(x) .+ 1
 y_noise = poisson(y, 100)
 # heavy noise and mean shift
 
-plot(x,y)
-plot!(x, y_noise)
+plot(x,y);
+plot!(x, y_noise);
 savefig("../images/pois_series.png") # hide
 nothing # hide
 ```
