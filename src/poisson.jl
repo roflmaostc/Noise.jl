@@ -52,10 +52,10 @@ function poisson(X::AbstractArray, scaling=Nothing; clip=false)
     
     X_noisy, clip = prepare_array_clip(X, clip)
     
-    #= if scaling != Nothing =#
-    #=     scaling = float(scaling) =#
-    #= end =#
-    max_intens = mymax(X)
+    if scaling != Nothing
+        scaling = convert(Float64, scaling) 
+    end
+    max_intens = convert(Float64, mymax(X))
     
     for i in eachindex(X)
         X_noisy[i] = poisson_core(X[i], max_intens, scaling, clip) 

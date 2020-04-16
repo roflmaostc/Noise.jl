@@ -49,7 +49,7 @@ function salt_pepper(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
     return X_noisy
 end
 """
-    salt_pepper(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob])
+    salt_pepper(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob=0.1])
 
 Returns array `X` affected by salt and pepper noise.
 `X` can be an array or an RGB or Gray image
@@ -83,7 +83,7 @@ function salt_pepper_chn(X::AbstractArray{C}, prob::T=0.1;
     return X_noisy 
 end
 """
-    salt_pepper_chn(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob])
+    salt_pepper_chn(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob=0.1])
 
 Returns a RGB Image `X` affected by salt and pepper noise.
 When a salt or pepper occurs, it is applied to all channels of the RGB making a real salt

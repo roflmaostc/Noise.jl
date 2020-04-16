@@ -46,7 +46,7 @@ function additive_white_gaussian(X, σ=0.1, μ=0.0; clip=false)
 
 end
 """
-    additive_white_gaussian(X; clip=false[, σ=1.0, μ=0.0])
+    additive_white_gaussian(X; clip=false[, σ=0.1, μ=0.0])
 
 Returns the array `X` with Gaussian noise (standard deviation `σ` and mean `μ`) 
 added. 
@@ -75,7 +75,7 @@ function additive_white_gaussian_chn(X::AbstractArray{<:RGB}, σ=0.1, μ=0.0)
     return X_noisy
 end
 """
-    additive_white_gaussian_chn(X[, σ=1.0, μ=0.0])
+    additive_white_gaussian_chn(X[, σ=0.1, μ=0.0])
 
 Returns the RGB image `X` with Gaussian noise (standard deviation `σ` and mean `μ`) 
 added pixelwise. However, every channel of one pixel receives the same amount of noise.
