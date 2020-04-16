@@ -10,10 +10,10 @@ PoissonRandom = "e409e4f3-bfea-5376-8464-e040bb5c01ab"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
-ColorTypes = "0.9.1"
+ColorTypes = "0.9.1, 0.10"
 ImageCore = "0.8.14"
-PoissonRandom = "0.4.0"
 Images = "0.22.0"
+PoissonRandom = "0.4.0"
 julia = "1.0, 1.1, 1.2, 1.3, 1.4"
 
 [extras]
