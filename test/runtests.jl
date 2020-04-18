@@ -38,9 +38,6 @@ img_gray_float = colorview(Gray,  ones(Float64, 1000, 1000))
 
 
 @testset "Clip functions" begin
-    @test mean(Noise.clip_0_1!(arr .* 1000 .+ 1.0)) ≈ 1.0
-    @test mean(Noise.clip_0_1!(arr .* (-1000))) ≈ 0.0
-    
     @test mean(Noise.clip_v(1.1)) ≈ 1.0
     @test mean(Noise.clip_v(1.0)) ≈ 1.0
     @test mean(Noise.clip_v(10.0)) ≈ 1.0

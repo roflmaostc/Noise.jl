@@ -4,12 +4,6 @@ using Random
 using ColorTypes
 using ImageCore
 
- # clipping a array
-function clip_0_1!(X)
-    map!(x -> max(0.0, min(1.0, x)), X, X)
-    return X
-end
-
  # clipping a single value
 function clip_v(x)
     return max(0.0, min(1.0, x))
@@ -31,8 +25,9 @@ end
 function prepare_array_clip(X::Union{AbstractArray{Gray{T}}, 
         AbstractArray{RGB{T}}, AbstractArray{T}}, clip) where T
     clip = T <: Normed ? true : clip
-    return similar(X), clip
+    return copy(X), clip
 end
+
 
 
 include("poisson.jl")
