@@ -1,4 +1,4 @@
-export poisson
+export poisson, poisson!
 
  # get the maximum intensity of an image
 mymax(X::AbstractArray{<:RGB}) = max_rgb(X)
@@ -48,20 +48,30 @@ function poisson_core(a, max_intens, scaling, clip)
     end
 end
 
-function poisson(X::AbstractArray, scaling=Nothing; clip=false)
+
+ # in place
+function poisson!(X::Union{AbstractArray{Gray{T}}, 
+        AbstractArray{RGB{T}}, AbstractArray{T}}, scaling=Nothing; clip=false) where T
     
-    X_noisy, clip = prepare_array_clip(X, clip)
+    clip = T <: Normed ? true : clip
     
     max_intens = convert(Float64, mymax(X))
     
     for i in eachindex(X)
-        X_noisy[i] = poisson_core(X[i], max_intens, scaling, clip) 
+        X[i] = poisson_core(X[i], max_intens, scaling, clip) 
     end
 
-    return X_noisy
+    return X
 end
+
+
+function poisson(X::AbstractArray, scaling=Nothing; clip=false)
+    X_noisy = copy(X)
+    return poisson!(X_noisy, scaling, clip=clip)
+end
+
 """
-    poisson(X; scaling=1, clip=false)
+    poisson(X; scaling=Nothing, clip=false)
 
 Returns the array `X` affected by Poisson noise. 
 At every position the Poisson noise affects the intensity individually 

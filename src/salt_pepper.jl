@@ -32,22 +32,27 @@ end
 
 
  # for arbitrary array, RGB and Gray images
-function salt_pepper(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
+function salt_pepper!(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
     
     # type conversion of salt & pepper makes it faster
     a = X[1]
     salt = convert(eltype(a), salt)
     pepper = convert(eltype(a), pepper)
 
-    # copy array
-    X_noisy = copy(X)
 
     # iterate over array
     for i in eachindex(X)
-        X_noisy[i] = salt_pepper_core(X[i], prob, salt_prob, salt, pepper)
+        X[i] = salt_pepper_core(X[i], prob, salt_prob, salt, pepper)
     end
-    return X_noisy
+    return X
 end
+
+
+function salt_pepper(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
+    X_noisy = copy(X)
+    return salt_pepper!(X_noisy, prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
+end
+
 """
     salt_pepper(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob=0.1])
 
@@ -64,23 +69,26 @@ salt_pepper
 
 
  # salt_pepper for images is applied either to all channels or to none
-function salt_pepper_chn(X::AbstractArray{C}, prob::T=0.1;
-        salt_prob::T=0.5,
-        salt::T=1.0, pepper::T=0.0) where {T <: Number, C <: RGB}
-
-    # view
-    X_noisy = copy(X)
+function salt_pepper_chn!(X::AbstractArray{<:RGB}, prob=0.1;
+            salt_prob=0.5, salt=1.0, pepper=0.0)
 
     #iterate over all pixels
-    for i in eachindex(X_noisy)
+    for i in eachindex(X)
             if rand() < prob
                 #sop is for all channels the same
                 sop = salt_or_pepper(salt_prob, salt, pepper)
-                X_noisy[i] = RGB(sop, sop, sop)
+                X[i] = RGB(sop, sop, sop)
             end
     end
     
-    return X_noisy 
+    return X
+end
+
+
+function salt_pepper_chn(X::AbstractArray{<:RGB}, prob=0.1;
+            salt_prob=0.5, salt=1.0, pepper=0.0)
+    X_noisy = copy(X)
+    return salt_pepper_chn!(X_noisy, prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
 end
 """
     salt_pepper_chn(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob=0.1])

@@ -21,14 +21,6 @@ function max_rgb(X::AbstractArray{RGB{T}}) where T
     return max_v
 end
 
- # prepare array and clip
-function prepare_array_clip(X::Union{AbstractArray{Gray{T}}, 
-        AbstractArray{RGB{T}}, AbstractArray{T}}, clip) where T
-    clip = T <: Normed ? true : clip
-    return copy(X), clip
-end
-
-
 
 include("poisson.jl")
 include("salt_pepper.jl")
