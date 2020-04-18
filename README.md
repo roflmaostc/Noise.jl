@@ -23,8 +23,8 @@ julia> Pkg.add("Noise")
 ```
     
 ## Usage
-Currently, all methods are not working in place and return always a new array.
-In general, if images like `Array{RGB{<:Normed}` `Array{Gray{<:Normed}}` are given to a method, a new image with same type will be returned.
+Currently, all methods are provided with trailing `!` (like `poisson!`), so there is a in place method available. 
+In general, if images like `Array{RGB{<:Normed}` `Array{Gray{<:Normed}}` are given to a method, a image with same type will be returned.
 The methods also work for normal Arrays like `Array{<:Number}`.
 At the moment three different types of noise are possible: Additive white Gaussian, Salt and Pepper and Poisson noise.
 
