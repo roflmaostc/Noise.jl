@@ -9,6 +9,7 @@ makedocs(modules = [Noise],
                   "man/additive_white_gaussian.md", 
                   "man/salt_pepper.md", 
                   "man/poisson.md",
+                  "man/quantization.md",
                   "man/function_references.md",
                  ]
         )

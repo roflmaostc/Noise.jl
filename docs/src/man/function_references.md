@@ -17,3 +17,8 @@ salt_pepper_chn
 ```@docs
 poisson
 ```
+
+## Quantization 
+```@docs
+quantization
+```
