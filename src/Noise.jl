@@ -25,5 +25,6 @@ end
 include("poisson.jl")
 include("salt_pepper.jl")
 include("white_noise_additive.jl")
+include("quantization.jl")
 
 end 
