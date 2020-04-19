@@ -1,7 +1,9 @@
 export quantization!, quantization
 
+
+ # apply quantization and clipping
 function quant(x, levels, minv, maxv)
-    return round((x - minv)/(maxv-minv) * levels) / levels * (maxv-minv) + minv
+    return clip_v(round((x - minv)/(maxv-minv) * levels) / levels * (maxv-minv) + minv, minv, maxv)
 end
 
 function quantization!(X::AbstractArray{<:RGB}, levels=5; minv=0, maxv=1)

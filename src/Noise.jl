@@ -9,6 +9,9 @@ function clip_v(x)
     return max(0.0, min(1.0, x))
 end
 
+function clip_v(x, minv, maxv)
+    return max(minv, min(maxv, x))
+end
 
  # get the maximum single value of a RGB image
 function max_rgb(X::AbstractArray{RGB{T}}) where T

@@ -38,6 +38,7 @@ img_gray_float = colorview(Gray,  ones(Float64, 1000, 1000))
 
 
 @testset "Clip functions" begin
+    
     @test mean(Noise.clip_v(1.1)) ≈ 1.0
     @test mean(Noise.clip_v(1.0)) ≈ 1.0
     @test mean(Noise.clip_v(10.0)) ≈ 1.0
@@ -205,4 +206,30 @@ end
     @test abs(mean(channelview(poisson(img_gray_float, 10000.0, clip=true)))-1.0)< 0.02
     @test abs(mean(channelview(poisson(img_float, 10000.0, clip=true))) -1.0) < 0.02
 
+end
+
+
+
+@testset "Quantization" begin
+    @test quantization(img_gray, 10000) ≈ img_gray
+    @test quantization(img_gray, 255) ≈ img_gray
+    @test abs(sum(quantization(img_gray, 255)) - sum(img_gray)) < 0.01 * sum(img_gray)
+    
+    @test quantization(img, 10000) ≈ img
+    @test quantization(img, 255) ≈ img
+
+    @test quantization(img_float, 1000) ≈ img_float
+    @test quantization(img_float, 255) ≈ img_float
+
+
+    @test abs((quantization(img_12_gray_float, 100) |> channelview |> mean) - 0.5) < 0.01
+    @test abs((quantization(img_12_gray_float, 50) |> channelview |> mean) - 0.5) < 0.05
+    @test abs(sum(quantization(img_12_gray_float, 255)) - sum(img_12_gray_float)) < 0.01 * sum(img_12_gray_float)
+
+    
+    @test minimum(quantization(img_rand_gray_float, 2, minv=0.32, maxv=0.98)) ≈ 0.32
+    @test maximum(quantization(img_rand_gray_float, 2, minv=0.32, maxv=0.98)) ≈ 0.98
+
+    @test minimum(quantization(img_rand_gray, 5, minv=0.1, maxv=0.96)) ≈ Gray{N0f8}(0.1)
+    @test maximum(quantization(img_rand_gray, 2, minv=0.32, maxv=0.98)) ≈ Gray{N0f8}(0.98)
 end
