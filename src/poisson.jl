@@ -13,11 +13,6 @@ function noise_f(x, scaling, max_intens)
     return pois_rand(x * scaling / max_intens) * max_intens / scaling
 end
 
-function poisson(X::AbstractArray, scaling=Nothing; clip=false)
-    X_noisy = copy(X)
-    return poisson!(X_noisy, scaling, clip=clip)
-end
-
 f_pois(scaling, max_intens) = x -> scaling == Nothing ? pois_rand(x) : noise_f(x, scaling, max_intens) 
 
 poisson(X::AbstractArray, scaling=Nothing; clip=false) = poisson!(copy(X), scaling, clip=clip)
