@@ -238,3 +238,31 @@ end
     @test minimum(quantization(img_rand_gray, 5, minv=0.1, maxv=0.96)) ≈ Gray{N0f8}(0.1)
     @test maximum(quantization(img_rand_gray, 2, minv=0.32, maxv=0.98)) ≈ Gray{N0f8}(0.98)
 end
+
+
+@testset "Multiplicative Gaussian Noise" begin
+
+    # check array with white gaussian noise
+    @test abs(std(mult_gaussian(arr_zeros, 13.0)) - 0) < 0.1
+    @test mean(mult_gaussian(arr_zeros, 0.5, -1.0, clip=false)) ≈ 0
+    @test mean(mult_gaussian(arr_zeros, 0.5, -1.0, clip=true)) ≈ 0
+
+
+    # check images for gaussian white noise
+    # check mean offset channelwise
+    @test abs(mean(channelview(mult_gaussian_chn(img_zeros, 0.1, 0.5)))) ≈ 0
+    @test abs(mean(channelview(mult_gaussian_chn(img_zeros, 0.2, 0.3)))) ≈ 0
+
+    # check mean offset with clip
+    @test abs(mean(channelview(mult_gaussian(img_zeros, 0.1, 0.5)))) ≈  0
+    @test abs(mean(channelview(mult_gaussian(img_zeros, 0.2, 0.3)))) ≈ 0
+    @test abs(mean(channelview(mult_gaussian(img_zeros, 0.0, 10)))) ≈ 0
+    
+
+    # check mean offset with clip
+    @test abs(mean(channelview(mult_gaussian(img, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(std(channelview(mult_gaussian(img, 0.2, 0.3))) - 0.2) < 0.05
+    @test abs(mean(channelview(mult_gaussian(img, 0.01, 0.2))) - 0.2) < 0.05
+    @test abs(std(channelview(mult_gaussian(img, 0.1, 0.5))) - 0.1) < 0.05
+
+end
