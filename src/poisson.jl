@@ -7,14 +7,10 @@ mymax(X::AbstractArray) = maximum(X)
 
 
  # noise function for poisson
-function noise(x, scaling, max_intens)
-    if scaling == Nothing
-        return pois_rand(x)
-    else
-        # scale image to max_intensity and apply poisson noise
-        # after Poisson noise scale it back
-        return pois_rand(x * scaling / max_intens) * max_intens / scaling
-    end
+function noise_f(x, scaling, max_intens)
+    # scale image to max_intensity and apply poisson noise
+    # after Poisson noise scale it back
+    return pois_rand(x * scaling / max_intens) * max_intens / scaling
 end
 
 function poisson(X::AbstractArray, scaling=Nothing; clip=false)
@@ -22,7 +18,7 @@ function poisson(X::AbstractArray, scaling=Nothing; clip=false)
     return poisson!(X_noisy, scaling, clip=clip)
 end
 
-f_pois(scaling, max_intens) = x -> noise(x, scaling, max_intens)
+f_pois(scaling, max_intens) = x -> scaling == Nothing ? pois_rand(x) : noise_f(x, scaling, max_intens) 
 
 poisson(X::AbstractArray, scaling=Nothing; clip=false) = poisson!(copy(X), scaling, clip=clip)
 function poisson!(X::AbstractArray, scaling=Nothing; clip=false)
