@@ -226,6 +226,11 @@ end
     @test abs((quantization(img_12_gray_float, 50) |> channelview |> mean) - 0.5) < 0.05
     @test abs(sum(quantization(img_12_gray_float, 255)) - sum(img_12_gray_float)) < 0.01 * sum(img_12_gray_float)
 
+
+    @test abs((quantization(arr , 100) |> mean) - 0.5) < 0.01
+    @test abs((quantization(arr, 50) |> mean) - 0.5) < 0.05
+    @test abs(sum(quantization(arr, 255)) - sum(arr)) < 0.01 * sum(arr)
+
     
     @test minimum(quantization(img_rand_gray_float, 2, minv=0.32, maxv=0.98)) ≈ 0.32
     @test maximum(quantization(img_rand_gray_float, 2, minv=0.32, maxv=0.98)) ≈ 0.98
