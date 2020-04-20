@@ -17,57 +17,17 @@ function noise(x, scaling, max_intens)
     end
 end
 
- # core function for RGB images which is called from within the loop 
-function poisson_core(a::RGB, max_intens, scaling, clip)
-    if clip
-        return RGB(clip_v(noise(red(a), scaling, max_intens)),
-                         clip_v(noise(green(a), scaling, max_intens)),
-                         clip_v(noise(blue(a), scaling, max_intens)))
-    else
-        return RGB(noise(red(a), scaling, max_intens),
-                         noise(green(a), scaling, max_intens),
-                         noise(blue(a), scaling, max_intens))
-    end
-end
-
- # core for Gray Arrays
-function poisson_core(a::Gray, max_intens, scaling, clip)
-    if clip
-        return Gray(clip_v(noise(gray(a), scaling, max_intens)))
-    else
-        return Gray(noise(gray(a), scaling, max_intens))
-    end
-end
-
- # core for arbitrary arrays, might fail sometimes
-function poisson_core(a, max_intens, scaling, clip)
-    if clip
-        return clip_v(noise(a, scaling, max_intens))
-    else
-        return noise(a, scaling, max_intens)
-    end
-end
-
-
- # in place
-function poisson!(X::Union{AbstractArray{Gray{T}}, 
-        AbstractArray{RGB{T}}, AbstractArray{T}}, scaling=Nothing; clip=false) where T
-    
-    clip = T <: Normed ? true : clip
-    
-    max_intens = convert(Float64, mymax(X))
-    
-    for i in eachindex(X)
-        X[i] = poisson_core(X[i], max_intens, scaling, clip) 
-    end
-
-    return X
-end
-
-
 function poisson(X::AbstractArray, scaling=Nothing; clip=false)
     X_noisy = copy(X)
     return poisson!(X_noisy, scaling, clip=clip)
+end
+
+f_pois(scaling, max_intens) = x -> noise(x, scaling, max_intens)
+
+poisson(X::AbstractArray, scaling=Nothing; clip=false) = poisson!(copy(X), scaling, clip=clip)
+function poisson!(X::AbstractArray, scaling=Nothing; clip=false)
+    max_intens = convert(Float64, mymax(X))
+    return apply_noise!(f_pois(scaling, max_intens), X, clip)
 end
 
 """
