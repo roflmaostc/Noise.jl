@@ -71,13 +71,6 @@ function apply_noise!(pixel_f, X::Union{AbstractArray{Gray{T}}, AbstractArray{RG
     return X
 end
 
- # just call the in-place function but copy it before
-function apply_noise(pixel_f, X::Union{AbstractArray{Gray{T}}, AbstractArray{RGB{T}}, 
-            AbstractArray{T}}, clip) where T
-    return apply_noise!(pixel_f, copy(X), clip)
-end
-
-
 
  # function which use exactly the same noise for each color channel of a pixel
 function apply_noise_chn!(pixel_f, noise_f, X::AbstractArray{RGB{T}}, clip) where T
@@ -99,10 +92,6 @@ function apply_noise_chn!(pixel_f, noise_f, X::AbstractArray{RGB{T}}, clip) wher
         end
     end
     return X
-end
-
-function apply_noise_chn(pixel_f, noise_f, X::AbstractArray{<:RGB}, clip)
-    return apply_noise_chn!(pixel_f, noise_f, copy(X), clip)
 end
 
 

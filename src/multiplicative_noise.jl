@@ -5,7 +5,7 @@ function f_mg(σ, μ)
     return x -> x * (randn() * σ + μ)
 end
 
-mult_gaussian(X, σ=0.1, μ=1, clip=false) = apply_noise(f_mg(σ, μ), X, clip)
+mult_gaussian(X, σ=0.1, μ=1, clip=false) = mult_gaussian!(copy(X), σ, μ, clip=clip)
 mult_gaussian!(X, σ=0.1, μ=1, clip=false) = apply_noise!(f_mg(σ, μ), X, clip)
 
 
@@ -15,5 +15,5 @@ f_chn_mg() = (x, n)-> x * n
 noise_mg(σ, μ) = () -> randn() * σ + μ
 
 
-mult_gaussian_chn(X, σ=0.1, μ=1; clip=false) = apply_noise_chn(f_chn_mg(), noise_mg(σ, μ), X, clip)
+mult_gaussian_chn(X, σ=0.1, μ=1; clip=false) = mult_gaussian_chn!(copy(X), σ, μ; clip=clip)
 mult_gaussian_chn!(X, σ=0.1, μ=1; clip=false) = apply_noise_chn!(f_chn_mg(), noise_mg(σ, μ), X, clip)

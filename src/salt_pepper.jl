@@ -1,57 +1,30 @@
 export salt_pepper, salt_pepper_chn 
     
- # function which decides whether salt or pepper
 salt_or_pepper(salt_prob, salt, pepper) = rand() < salt_prob ? salt : pepper
 
-
- # core noise function for RGB
-function salt_pepper_core(a::RGB, prob, salt_prob, salt, pepper)
-    return RGB(rand() < prob ? salt_or_pepper(salt_prob, salt, pepper) : red(a),
-               rand() < prob ? salt_or_pepper(salt_prob, salt, pepper) : green(a),
-               rand() < prob ? salt_or_pepper(salt_prob, salt, pepper) : blue(a))
+ # function for a raw value
+function f_sp(prob, salt_prob, salt, pepper)
+    return x -> rand() < prob ? salt_or_pepper(salt_prob, salt, pepper) : x
 end
 
- # core noise function for Gray
-function salt_pepper_core(a::Gray, prob, salt_prob, salt, pepper)
-    if rand() < prob
-        return Gray(salt_or_pepper(salt_prob, salt, pepper))
-    else
-        return Gray(a)
-    end
-end
 
- # core noise function for different types
-function salt_pepper_core(a, prob, salt_prob, salt, pepper)
-    if rand() < prob
-        return salt_or_pepper(salt_prob, salt, pepper)
-    else
-        return a
-    end
+function salt_pepper(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
+    return salt_pepper!(copy(X), prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
 end
-
 
 
  # for arbitrary array, RGB and Gray images
 function salt_pepper!(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
-    
+        
     # type conversion of salt & pepper makes it faster
     a = X[1]
     salt = convert(eltype(a), salt)
     pepper = convert(eltype(a), pepper)
 
-
-    # iterate over array
-    for i in eachindex(X)
-        X[i] = salt_pepper_core(X[i], prob, salt_prob, salt, pepper)
-    end
-    return X
+    return apply_noise!(f_sp(prob, salt_prob, salt, pepper), X, false)
 end
 
 
-function salt_pepper(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
-    X_noisy = copy(X)
-    return salt_pepper!(X_noisy, prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
-end
 
 """
     salt_pepper(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob=0.1])
@@ -66,30 +39,22 @@ The probability for pepper noise is therefore 1-`salt_prob`.
 """
 salt_pepper
 
+ # function for a raw value
+f_chn_sp(prob) = (x, n)-> rand() < prob ? n : x
+
+ # function to generate noise
+noise_sp(salt_prob, salt, pepper) = () -> salt_or_pepper(salt_prob, salt, pepper)
 
 
- # salt_pepper for images is applied either to all channels or to none
-function salt_pepper_chn!(X::AbstractArray{<:RGB}, prob=0.1;
-            salt_prob=0.5, salt=1.0, pepper=0.0)
+function salt_pepper_chn(X, prob=0.1; salt_prob=0.5, salt=1.0, pepper=0.0)
+    return salt_pepper_chn!(copy(X), prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
+end
 
-    #iterate over all pixels
-    for i in eachindex(X)
-            if rand() < prob
-                #sop is for all channels the same
-                sop = salt_or_pepper(salt_prob, salt, pepper)
-                X[i] = RGB(sop, sop, sop)
-            end
-    end
-    
-    return X
+function salt_pepper_chn!(X, prob=0.1; salt_prob=0.5, salt=1.0, pepper=0.0)
+    return apply_noise_chn!(f_chn_sp(prob), noise_sp(salt_prob, salt, pepper), X, false)
 end
 
 
-function salt_pepper_chn(X::AbstractArray{<:RGB}, prob=0.1;
-            salt_prob=0.5, salt=1.0, pepper=0.0)
-    X_noisy = copy(X)
-    return salt_pepper_chn!(X_noisy, prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
-end
 """
     salt_pepper_chn(X; salt_prob=0.5, salt=1.0, pepper=0.0[, prob=0.1])
 

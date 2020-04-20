@@ -6,7 +6,7 @@ function f_awg(σ, μ)
     return x -> x + randn() * σ + μ
 end
 
-additive_white_gaussian(X, σ=0.1, μ=0; clip=false) = apply_noise(f_awg(σ, μ), X, clip)
+additive_white_gaussian(X, σ=0.1, μ=0; clip=false) = additive_white_gaussian!(copy(X), σ, μ, clip=clip)
 additive_white_gaussian!(X, σ=0.1, μ=0; clip=false) = apply_noise!(f_awg(σ, μ), X, clip)
 """
     additive_white_gaussian(X; clip=false[, σ=0.1, μ=0.0])
@@ -27,7 +27,7 @@ f_chn_awg() = (x, n)-> x + n
 noise_awg(σ, μ) = () -> randn() * σ + μ
 
 
-additive_white_gaussian_chn(X, σ=0.1, μ=0; clip=false) = apply_noise_chn(f_chn_awg(), noise_awg(σ, μ), X, clip)
+additive_white_gaussian_chn(X, σ=0.1, μ=0; clip=false) = additive_white_gaussian_chn!(copy(X), σ, μ, clip=clip)
 additive_white_gaussian_chn!(X, σ=0.1, μ=0; clip=false) = apply_noise_chn!(f_chn_awg(), noise_awg(σ, μ), X, clip)
 
 """
