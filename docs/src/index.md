@@ -23,15 +23,15 @@ using Noise, TestImages, Images, Plots
 img = testimage("lena_gray_256")
 img_color = testimage("lena_color_256")
 
-img_gray_gauss = additive_white_gaussian(img, 0.1)
-img_color_gauss = additive_white_gaussian(img_color, 0.1)
+img_gray_gauss = add_gauss(img, 0.1)
+img_color_gauss = add_gauss(img_color, 0.1)
 img_gray_sp = salt_pepper(img, 0.1)
 
 # 1D array
 x = LinRange(0.0, 10.0, 300)
 y = sin.(x)
 # small noise
-y_noise = additive_white_gaussian(y, 0.1)
+y_noise = add_gauss(y, 0.1)
 
 
 plot(x,y); # hide

@@ -127,46 +127,46 @@ end
 
 @testset "Additive white Gaussian" begin
     # check array with white gaussian noise
-    @test abs(std(additive_white_gaussian(arr_zeros, 13.0)) - 13.0) < 0.1
-    @test abs(mean(additive_white_gaussian(arr_zeros, 1.0))) < 0.05
-    @test abs(mean(additive_white_gaussian(arr_zeros, 1.0, 10.0)) - 10) < 0.05
-    @test mean(additive_white_gaussian(arr_zeros, 0.5, -1.0, clip=false)) < 0
-    @test mean(additive_white_gaussian(arr_zeros, 0.5, -1.0, clip=true)) >= 0
-    @test mean(additive_white_gaussian(arr_zeros, 0.5, 2.0, clip=false)) > 1
-    @test mean(additive_white_gaussian(arr_zeros, 0.5, 2.0, clip=true)) <= 1
+    @test abs(std(add_gauss(arr_zeros, 13.0)) - 13.0) < 0.1
+    @test abs(mean(add_gauss(arr_zeros, 1.0))) < 0.05
+    @test abs(mean(add_gauss(arr_zeros, 1.0, 10.0)) - 10) < 0.05
+    @test mean(add_gauss(arr_zeros, 0.5, -1.0, clip=false)) < 0
+    @test mean(add_gauss(arr_zeros, 0.5, -1.0, clip=true)) >= 0
+    @test mean(add_gauss(arr_zeros, 0.5, 2.0, clip=false)) > 1
+    @test mean(add_gauss(arr_zeros, 0.5, 2.0, clip=true)) <= 1
 
 
     # check images for gaussian white noise
     # check mean offset channelwise
-    @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros, 0.1, 0.5))) - 0.5) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros, 0.2, 0.3))) - 0.3) < 0.05
+    @test abs(mean(channelview(add_gauss_chn(img_zeros, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(add_gauss_chn(img_zeros, 0.2, 0.3))) - 0.3) < 0.05
 
     # check mean offset with clip
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros, 0.1, 0.5))) - 0.5) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros, 0.2, 0.3))) - 0.3) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros, 0.0, 10))) - 1.0) < 0.005
+    @test abs(mean(channelview(add_gauss(img_zeros, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros, 0.2, 0.3))) - 0.3) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros, 0.0, 10))) - 1.0) < 0.005
     
     # check mean offet with gray
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray, 0.1, 0.5))) - 0.5) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray, 0.2, 0.3))) - 0.3) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray, 0.0, 10))) - 1.0) < 0.005
+    @test abs(mean(channelview(add_gauss(img_zeros_gray, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros_gray, 0.2, 0.3))) - 0.3) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros_gray, 0.0, 10))) - 1.0) < 0.005
 
     
     # check the same but with float images
     # check images for gaussian white noise
     # check mean offset channelwise
-    @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros_float, 0.1, 0.5))) - 0.5) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian_chn(img_zeros_float, 0.2, 0.3))) - 0.3) < 0.05
+    @test abs(mean(channelview(add_gauss_chn(img_zeros_float, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(add_gauss_chn(img_zeros_float, 0.2, 0.3))) - 0.3) < 0.05
 
     # check mean offset, now it's not clipped
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_float, 0.1, 0.5))) - 0.5) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_float, 0.2, 0.3))) - 0.3) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_float, 0.0, 10))) - 10.0) < 0.005
+    @test abs(mean(channelview(add_gauss(img_zeros_float, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros_float, 0.2, 0.3))) - 0.3) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros_float, 0.0, 10))) - 10.0) < 0.005
     
     # check mean offet with gray
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray_float, 0.1, 0.5))) - 0.5) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray_float, 0.2, 0.3))) - 0.3) < 0.05
-    @test abs(mean(channelview(additive_white_gaussian(img_zeros_gray_float, 0.0, 10))) - 10.0) < 0.005
+    @test abs(mean(channelview(add_gauss(img_zeros_gray_float, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros_gray_float, 0.2, 0.3))) - 0.3) < 0.05
+    @test abs(mean(channelview(add_gauss(img_zeros_gray_float, 0.0, 10))) - 10.0) < 0.005
 
 
 end

@@ -3,8 +3,8 @@
 
 ## Additive White 
 ```@docs
-additive_white_gaussian
-additive_white_gaussian_chn
+add_gauss
+add_gauss_chn
 ```
 
 ## Salt and Pepper 
@@ -21,4 +21,10 @@ poisson
 ## Quantization 
 ```@docs
 quantization
+```
+
+## Multiplicative Gaussian Noise 
+```@docs
+mult_gauss
+mult_gauss_chn
 ```

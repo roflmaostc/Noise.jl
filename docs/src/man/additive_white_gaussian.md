@@ -9,7 +9,7 @@ The random number has a mean $\mu$ of zero and a certain standard deviation $\si
 ### Arrays, Grayscale Images and RGB Images
 For arrays, grayscale images (`Array{<:Gray}`) and RGB images (`Array{<:RGB}`) we provide the following method:
 ```julia
-additive_white_gaussian(X; clip=false[, σ=0.1, μ=0.0])
+add_gauss(X; clip=false[, σ=0.1, μ=0.0])
 ```
 This methods adds a random Gaussian value to each individual element of the array. 
 In the case of RGB images, this means that every colorchannel of one pixel receives a different amount of noise.
@@ -25,7 +25,7 @@ For Float arrays we don't clip any values, this should be preferably used for an
 ### RGB images each Channel the same  
 For RGB images (`Array{<:RGB}`) we also provide the following:
 ```julia
-additive_white_gaussian_chn(X; clip=false[, σ=0.1, μ=0.0])
+add_gauss_chn(X; clip=false[, σ=0.1, μ=0.0])
 ```
 This method, in contradiction to the previous one, adds the same noise value to all color channels of one pixel. 
 
@@ -41,18 +41,18 @@ img_gray = testimage("lena_gray_256")
 img_color = testimage("lena_color_256")
 img_float = convert(Array{Gray{Float64}}, img_gray) 
 
-img_gray_noise = additive_white_gaussian(img_gray)
+img_gray_noise = add_gauss(img_gray)
 # the following call sets the standard deviation and the mean manually
-img_color_noise = additive_white_gaussian(img_color, 0.1, 0.0)
+img_color_noise = add_gauss(img_color, 0.1, 0.0)
 # since mean is by default 0.0 we can leave it out
-img_color_channel_noise = additive_white_gaussian_chn(img_color, 0.1)
+img_color_channel_noise = add_gauss_chn(img_color, 0.1)
 
-img_gray_noise_heavy = additive_white_gaussian(img_gray, 0.5)
-img_gray_noise_intensity = additive_white_gaussian(img_gray, 0.1, 0.3)
+img_gray_noise_heavy = add_gauss(img_gray, 0.5)
+img_gray_noise_intensity = add_gauss(img_gray, 0.1, 0.3)
 
 # without clip the intensity can be above 1.0 as well
 # however, we can only save (see below) a image with intensities [0, 1]
-img_float_noise  = additive_white_gaussian(img_float, 0.3, -0.6, clip=true)
+img_float_noise  = add_gauss(img_float, 0.3, -0.6, clip=true)
 
 
 save("../images/awg_img_gray_noise.png", img_gray_noise) # hide
@@ -87,9 +87,9 @@ using Noise, Plots
 x = LinRange(0.0, 10.0, 300)
 y = sin.(x)
 # small noise
-y_noise = additive_white_gaussian(y, 0.05)
+y_noise = add_gauss(y, 0.05)
 # heavy noise and mean shift
-y_noise_2 = additive_white_gaussian(y, 0.2, -0.4)
+y_noise_2 = add_gauss(y, 0.2, -0.4)
 
 plot(x,y);
 plot!(x, y_noise);

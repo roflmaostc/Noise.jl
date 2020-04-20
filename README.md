@@ -8,7 +8,7 @@ Noise.jl is a Julia package to add different kinds of noise to a digital signal 
 
 
 ## Documentation
-The complete manual of `Noise.j` is available at [the documentation page][docs-stable-url].
+The complete manual of Noise.jl is available at [the documentation page][docs-stable-url].
 It has more detailed explanations of the methods and contains examples for data arrays and images.
 
 
@@ -25,22 +25,22 @@ julia> Pkg.add("Noise")
 Currently, all methods are provided with trailing `!` (like `poisson!`), so there is a in-place method available. 
 In general, if images like `Array{RGB{<:Normed}` or `Array{Gray{<:Normed}}` are given to a method, an image with same type will be returned.
 The methods also work for normal Arrays like `Array{<:Number}`.
-At the moment three different types of noise are possible: Additive white Gaussian, Salt and Pepper and Poisson noise.
+At the moment four different types of noise are possible: Additive and multiplicative white Gaussian, Salt and Pepper, Poisson noise and Quantization noise.
 
 ```@example
 using Noise, TestImages, Images, Plots
 img = testimage("lena_gray_256")
 img_color = testimage("lena_color_256")
 
-img_gray_gauss = additive_white_gaussian(img, 0.1)
-img_color_gauss = additive_white_gaussian(img_color, 0.1)
+img_gray_gauss = add_gauss(img, 0.1)
+img_color_gauss = add_gauss(img_color, 0.1)
 img_gray_sp = salt_pepper(img, 0.1)
 
 # 1D array
 x = LinRange(0.0, 10.0, 300)
 y = sin.(x)
 # small noise
-y_noise = additive_white_gaussian(y, 0.1)
+y_noise = add_gauss(y, 0.1)
 
 
 plot(x,y) # hide
