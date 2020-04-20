@@ -240,29 +240,29 @@ end
 end
 
 
-@testset "Multiplicative Gaussian Noise" begin
+@testset "Multiplicative gauss Noise" begin
 
-    # check array with white gaussian noise
-    @test abs(std(mult_gaussian(arr_zeros, 13.0)) - 0) < 0.1
-    @test mean(mult_gaussian(arr_zeros, 0.5, -1.0, clip=false)) ≈ 0
-    @test mean(mult_gaussian(arr_zeros, 0.5, -1.0, clip=true)) ≈ 0
+    # check array with white gauss noise
+    @test abs(std(mult_gauss(arr_zeros, 13.0)) - 0) < 0.1
+    @test mean(mult_gauss(arr_zeros, 0.5, -1.0, clip=false)) ≈ 0
+    @test mean(mult_gauss(arr_zeros, 0.5, -1.0, clip=true)) ≈ 0
 
 
-    # check images for gaussian white noise
+    # check images for gauss white noise
     # check mean offset channelwise
-    @test abs(mean(channelview(mult_gaussian_chn(img_zeros, 0.1, 0.5)))) ≈ 0
-    @test abs(mean(channelview(mult_gaussian_chn(img_zeros, 0.2, 0.3)))) ≈ 0
+    @test abs(mean(channelview(mult_gauss_chn(img_zeros, 0.1, 0.5)))) ≈ 0
+    @test abs(mean(channelview(mult_gauss_chn(img_zeros, 0.2, 0.3)))) ≈ 0
 
     # check mean offset with clip
-    @test abs(mean(channelview(mult_gaussian(img_zeros, 0.1, 0.5)))) ≈  0
-    @test abs(mean(channelview(mult_gaussian(img_zeros, 0.2, 0.3)))) ≈ 0
-    @test abs(mean(channelview(mult_gaussian(img_zeros, 0.0, 10)))) ≈ 0
+    @test abs(mean(channelview(mult_gauss(img_zeros, 0.1, 0.5)))) ≈  0
+    @test abs(mean(channelview(mult_gauss(img_zeros, 0.2, 0.3)))) ≈ 0
+    @test abs(mean(channelview(mult_gauss(img_zeros, 0.0, 10)))) ≈ 0
     
 
     # check mean offset with clip
-    @test abs(mean(channelview(mult_gaussian(img, 0.1, 0.5))) - 0.5) < 0.05
-    @test abs(std(channelview(mult_gaussian(img, 0.2, 0.3))) - 0.2) < 0.05
-    @test abs(mean(channelview(mult_gaussian(img, 0.01, 0.2))) - 0.2) < 0.05
-    @test abs(std(channelview(mult_gaussian(img, 0.1, 0.5))) - 0.1) < 0.05
+    @test abs(mean(channelview(mult_gauss(img, 0.1, 0.5))) - 0.5) < 0.05
+    @test abs(std(channelview(mult_gauss(img, 0.2, 0.3))) - 0.2) < 0.05
+    @test abs(mean(channelview(mult_gauss(img, 0.01, 0.2))) - 0.2) < 0.05
+    @test abs(std(channelview(mult_gauss(img, 0.1, 0.5))) - 0.1) < 0.05
 
 end

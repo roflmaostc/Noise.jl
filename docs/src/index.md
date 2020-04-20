@@ -60,6 +60,7 @@ This 1D array is affected by a additive gaussian white noise ($\sigma=0.1, \mu=0
 Look here for more details and arguments of each function.
 ```@contents
 Pages = ["man/additive_white_gaussian.md", 
+         "man/mult_gauss.md",
          "man/salt_pepper.md", 
          "man/poisson.md",
          "man/quantization.md",
