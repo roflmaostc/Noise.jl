@@ -40,10 +40,10 @@ The probability for pepper noise is therefore 1-`salt_prob`.
 salt_pepper
 
  # function for a raw value
-f_chn_sp(prob) = (x, n)-> rand() < prob ? n : x
+f_chn_sp() = (x, n)-> n == Nothing ? x : n
 
  # function to generate noise
-noise_sp(salt_prob, salt, pepper) = () -> salt_or_pepper(salt_prob, salt, pepper)
+noise_sp(prob, salt_prob, salt, pepper) = () -> rand() < prob ? salt_or_pepper(salt_prob, salt, pepper) : Nothing
 
 
 function salt_pepper_chn(X, prob=0.1; salt_prob=0.5, salt=1.0, pepper=0.0)
@@ -51,7 +51,7 @@ function salt_pepper_chn(X, prob=0.1; salt_prob=0.5, salt=1.0, pepper=0.0)
 end
 
 function salt_pepper_chn!(X, prob=0.1; salt_prob=0.5, salt=1.0, pepper=0.0)
-    return apply_noise_chn!(f_chn_sp(prob), noise_sp(salt_prob, salt, pepper), X, false)
+    return apply_noise_chn!(f_chn_sp(), noise_sp(prob, salt_prob, salt, pepper), X, false)
 end
 
 
