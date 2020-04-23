@@ -1,6 +1,8 @@
 using Documenter, Noise 
 
-using Images, TestImages, ImageIO
+using Images, TestImages, ImageIO, Random
+ # set seed fixed for documentation
+Random.seed!(42)
 
 DocMeta.setdocmeta!(Noise, :DocTestSetup, :(using Noise, Images, TestImages, ImageIO); recursive=true)
 makedocs(modules = [Noise], 
