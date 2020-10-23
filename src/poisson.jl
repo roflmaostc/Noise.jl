@@ -13,16 +13,16 @@ function noise_f(x, scaling, max_intens)
     return pois_rand(x * scaling / max_intens) * max_intens / scaling
 end
 
-f_pois(scaling, max_intens) = x -> scaling == Nothing ? pois_rand(x) : noise_f(x, scaling, max_intens) 
+f_pois(scaling, max_intens) = x -> scaling == nothing ? pois_rand(x) : noise_f(x, scaling, max_intens) 
 
-poisson(X::AbstractArray, scaling=Nothing; clip=false) = poisson!(copy(X), scaling, clip=clip)
-function poisson!(X::AbstractArray, scaling=Nothing; clip=false)
+poisson(X::AbstractArray, scaling=nothing; clip=false) = poisson!(copy(X), scaling, clip=clip)
+function poisson!(X::AbstractArray, scaling=nothing; clip=false)
     max_intens = convert(Float64, mymax(X))
     return apply_noise!(f_pois(scaling, max_intens), X, clip)
 end
 
 """
-    poisson(X; scaling=Nothing, clip=false)
+    poisson(X; scaling=nothing, clip=false)
 
 Returns the array `X` affected by Poisson noise. 
 At every position the Poisson noise affects the intensity individually 
