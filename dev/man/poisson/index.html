@@ -7,7 +7,10 @@ img_color = testimage(&quot;lena_color_256&quot;)
 img_gray_noise = poisson(img_gray, 10.0)
 # the highest intensity corresponds to 1000 photons
 img_gray_noise_heavy = poisson(img_gray, 1000.0)
-img_color_noise = poisson(img_color, 100.0)</code></pre><p>As it can be seen clearly, the image with more measured photons, is less affected by noise.</p><table><tr><th style="text-align: left">Grayscale with 10 photons at the brightest value</th><th style="text-align: left">Grayscale image 1000 photons at the brightest value</th><th style="text-align: left">RGB image with 100 photons at the brightest value</th></tr><tr><td style="text-align: left"><img src="../../images/pois_img_gray_noise.png" alt/></td><td style="text-align: left"><img src="../../images/pois_img_gray_noise_heavy.png" alt/></td><td style="text-align: left"><img src="../../images/pois_img_color_noise.png" alt/></td></tr></table><h3><a class="nav-anchor" id="D-Arrays-1" href="#D-Arrays-1">1D Arrays</a></h3><p>Poisson noise cannot handle negative occurences by design, therefore the 1D array is a y-shifted sinus curve.</p><pre><code class="language-julia">using Noise, Plots
+img_color_noise = poisson(img_color, 100.0)</code></pre><pre><code class="language-none">┌ Warning: Usage of &quot;lena&quot; is not recommended, and the image may be removed in a later release. See https://womenlovetech.com/losing-lena-why-we-need-to-remove-one-image-and-end-techs-original-sin/ for more information.
+└ @ TestImages ~/.julia/packages/TestImages/g3u50/src/TestImages.jl:83
+┌ Warning: Usage of &quot;lena&quot; is not recommended, and the image may be removed in a later release. See https://womenlovetech.com/losing-lena-why-we-need-to-remove-one-image-and-end-techs-original-sin/ for more information.
+└ @ TestImages ~/.julia/packages/TestImages/g3u50/src/TestImages.jl:83</code></pre><p>As it can be seen clearly, the image with more measured photons, is less affected by noise.</p><table><tr><th style="text-align: left">Grayscale with 10 photons at the brightest value</th><th style="text-align: left">Grayscale image 1000 photons at the brightest value</th><th style="text-align: left">RGB image with 100 photons at the brightest value</th></tr><tr><td style="text-align: left"><img src="../../images/pois_img_gray_noise.png" alt/></td><td style="text-align: left"><img src="../../images/pois_img_gray_noise_heavy.png" alt/></td><td style="text-align: left"><img src="../../images/pois_img_color_noise.png" alt/></td></tr></table><h3><a class="nav-anchor" id="D-Arrays-1" href="#D-Arrays-1">1D Arrays</a></h3><p>Poisson noise cannot handle negative occurences by design, therefore the 1D array is a y-shifted sinus curve.</p><pre><code class="language-julia">using Noise, Plots
 
 x = LinRange(0.0, 10.0, 1000)
 y = 1 .* sin.(x) .+ 1
@@ -16,7 +19,7 @@ y_noise = poisson(y, 100)
 # heavy noise and mean shift
 
 plot(x,y);
-plot!(x, y_noise);</code></pre><pre><code class="language-none">/home/travis/.julia/packages/GR/yMV3y/src/../deps/gr/bin/gksqt: error while loading shared libraries: libQt5Widgets.so.5: cannot open shared object file: No such file or directory
+plot!(x, y_noise);</code></pre><pre><code class="language-none">/home/travis/.julia/packages/GR/BwGt2/src/../deps/gr/bin/gksqt: error while loading shared libraries: libQt5Widgets.so.5: cannot open shared object file: No such file or directory
 connect: Connection refused
 GKS: can&#39;t connect to GKS socket application
 

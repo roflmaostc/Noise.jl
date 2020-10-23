@@ -5,7 +5,10 @@ img_color = testimage(&quot;lena_color_256&quot;)
 
 img_gray_noise = quantization(img_gray, 20)
 img_gray_noise_heavy= quantization(img_gray, 5)
-img_color_noise = quantization(img_color, 10)</code></pre><p>The images are in the same order as the commands are. The left image has 20 different value levels. The middle image only 5. The right image has 20 different value levels for each color channel.</p><table><tr><th style="text-align: left">Gray image with 20 levels</th><th style="text-align: left">Gray image with 5 levels</th><th style="text-align: left">RGB image with 20 color levels each</th></tr><tr><td style="text-align: left"><img src="../../images/q_img_gray_noise.png" alt/></td><td style="text-align: left"><img src="../../images/q_img_gray_noise_heavy.png" alt/></td><td style="text-align: left"><img src="../../images/q_img_color_noise.png" alt/></td></tr></table><h3><a class="nav-anchor" id="D-Arrays-1" href="#D-Arrays-1">1D Arrays</a></h3><p>Some examples with 1D arrays. </p><pre><code class="language-julia">using Noise, Plots
+img_color_noise = quantization(img_color, 10)</code></pre><pre><code class="language-none">┌ Warning: Usage of &quot;lena&quot; is not recommended, and the image may be removed in a later release. See https://womenlovetech.com/losing-lena-why-we-need-to-remove-one-image-and-end-techs-original-sin/ for more information.
+└ @ TestImages ~/.julia/packages/TestImages/g3u50/src/TestImages.jl:83
+┌ Warning: Usage of &quot;lena&quot; is not recommended, and the image may be removed in a later release. See https://womenlovetech.com/losing-lena-why-we-need-to-remove-one-image-and-end-techs-original-sin/ for more information.
+└ @ TestImages ~/.julia/packages/TestImages/g3u50/src/TestImages.jl:83</code></pre><p>The images are in the same order as the commands are. The left image has 20 different value levels. The middle image only 5. The right image has 20 different value levels for each color channel.</p><table><tr><th style="text-align: left">Gray image with 20 levels</th><th style="text-align: left">Gray image with 5 levels</th><th style="text-align: left">RGB image with 20 color levels each</th></tr><tr><td style="text-align: left"><img src="../../images/q_img_gray_noise.png" alt/></td><td style="text-align: left"><img src="../../images/q_img_gray_noise_heavy.png" alt/></td><td style="text-align: left"><img src="../../images/q_img_color_noise.png" alt/></td></tr></table><h3><a class="nav-anchor" id="D-Arrays-1" href="#D-Arrays-1">1D Arrays</a></h3><p>Some examples with 1D arrays. </p><pre><code class="language-julia">using Noise, Plots
 
 x = LinRange(0.0, 10.0, 300)
 y = sin.(x)
@@ -14,7 +17,7 @@ y_noise_2 = quantization(y, 5, minv=-1, maxv=1)
 
 plot(x,y);
 plot!(x, y_noise);
-plot!(x, y_noise_2);</code></pre><pre><code class="language-none">/home/travis/.julia/packages/GR/yMV3y/src/../deps/gr/bin/gksqt: error while loading shared libraries: libQt5Widgets.so.5: cannot open shared object file: No such file or directory
+plot!(x, y_noise_2);</code></pre><pre><code class="language-none">/home/travis/.julia/packages/GR/BwGt2/src/../deps/gr/bin/gksqt: error while loading shared libraries: libQt5Widgets.so.5: cannot open shared object file: No such file or directory
 connect: Connection refused
 GKS: can&#39;t connect to GKS socket application
 
