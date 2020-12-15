@@ -17,4 +17,4 @@ makedocs(modules = [Noise],
                  ]
         )
 
-deploydocs(repo = "github.com/roflmaostc/Noise.jl.git")
+deploydocs(repo = "github.com/roflmaostc/Noise.jl.git", deploy_config=Documenter.GitHubActions)
