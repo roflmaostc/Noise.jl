@@ -3,9 +3,7 @@ Noise.jl is a Julia package to add different kinds of noise to a digital signal 
 
 | **Documentation**                       | **Build Status**                          | **Code Coverage**               |
 |:---------------------------------------:|:-----------------------------------------:|:-------------------------------:|
-| [![][docs-stable-img]][docs-stable-url] | [![Build Status][travis-img]][travis-url] | [![][coveral-img]][coveral-url] |
-| [![][docs-dev-img]][docs-dev-url]       | [![Build Status][appvey-img]][appvey-url] | [![][codecov-img]][codecov-url] |
-
+| [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][CI-img]][CI-url] | [![][codecov-img]][codecov-url] |
 
 ## Documentation
 The complete manual of Noise.jl is available at [the documentation page][docs-stable-url].
@@ -84,14 +82,8 @@ be used by many different types of application from Biology to Astronomy and Ele
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-darkgreen.svg 
 [docs-stable-url]: https://roflmaostc.github.io/Noise.jl/stable/
 
-[travis-img]: https://travis-ci.org/roflmaostc/Noise.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/github/roflmaostc/Noise.jl
-
-[appvey-img]: https://ci.appveyor.com/api/projects/status/gtaq06bbqu70bn75?svg=true
-[appvey-url]: https://ci.appveyor.com/project/roflmaostc/noise-jl
-
-[coveral-img]: https://coveralls.io/repos/github/roflmaostc/Noise.jl/badge.svg
-[coveral-url]: https://coveralls.io/github/roflmaostc/Noise.jl
+[CI-img]: https://github.com/roflmaostc/Noise.jl/workflows/CI/badge.svg
+[CI-url]: https://github.com/roflmaostc/Noise.jl/actions?query=workflow%3ACI 
 
 [codecov-img]: https://codecov.io/gh/roflmaostc/Noise.jl/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/roflmaostc/Noise.jl
