@@ -2,7 +2,8 @@ using Noise
 using Test
 using Statistics
 using Random
-using Images, ImageCore
+using ImageCore
+using ColorVectorSpace
 
 Random.seed!(42)
 tpl = (1000, 1000)
