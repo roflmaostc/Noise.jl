@@ -29,8 +29,8 @@ Here some examples with images.
 
 ```@example; output=False
 using Noise, TestImages, Images
-img_gray = testimage("lena_gray_256")
-img_color = testimage("lena_color_256")
+img_gray = testimage("fabio_gray_256")
+img_color = testimage("fabio_color_256")
 
 # the highest intensity corresponds to 10 photons
 img_gray_noise = poisson(img_gray, 10.0)
@@ -69,5 +69,5 @@ nothing # hide
 ```
 
 We notice that amount of noise is, in contradiction to additive noise, higher for higher intensity values.
-However, the signal-to-noise ratio is better for higher intensity values. This was visible in the Lena image.
+However, the signal-to-noise ratio is better for higher intensity values. This was visible in the fabio image.
 ![](../images/pois_series.png)

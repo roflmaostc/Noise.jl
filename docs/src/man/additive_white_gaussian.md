@@ -37,8 +37,8 @@ Here some examples with images.
 
 ```@example; output=False
 using Noise, TestImages, Images
-img_gray = testimage("lena_gray_256")
-img_color = testimage("lena_color_256")
+img_gray = testimage("fabio_gray_256")
+img_color = testimage("fabio_color_256")
 img_float = convert(Array{Gray{Float64}}, img_gray) 
 
 img_gray_noise = add_gauss(img_gray)

@@ -20,8 +20,8 @@ At the moment three different types of noise are possible: Additive white Gaussi
 
 ```@example
 using Noise, TestImages, Images, Plots
-img = testimage("lena_gray_256")
-img_color = testimage("lena_color_256")
+img = testimage("fabio_gray_256")
+img_color = testimage("fabio_color_256")
 
 img_gray_gauss = add_gauss(img, 0.1)
 img_color_gauss = add_gauss(img_color, 0.1)

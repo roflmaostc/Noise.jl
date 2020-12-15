@@ -20,8 +20,8 @@ For `Normed` datatypes like `Normed{UInt8, 8}` you can't choose values above 1 a
 Some examples with images.
 ```@example; output=False
 using Noise, TestImages, Images
-img_gray = testimage("lena_gray_256")
-img_color = testimage("lena_color_256")
+img_gray = testimage("fabio_gray_256")
+img_color = testimage("fabio_color_256")
 
 img_gray_noise = quantization(img_gray, 20)
 img_gray_noise_heavy= quantization(img_gray, 5)
