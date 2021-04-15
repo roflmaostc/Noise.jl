@@ -1,7 +1,6 @@
 module Noise
 using PoissonRandom
 using Random
-using ColorTypes
 using ImageCore
 
  # clipping a single value
