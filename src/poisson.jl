@@ -15,10 +15,12 @@ end
 
 f_pois(scaling, max_intens) = x -> scaling == nothing ? pois_rand(x) : noise_f(x, scaling, max_intens) 
 
+comb_pois(x, n) = n
+
 poisson(X::AbstractArray, scaling=nothing; clip=false) = poisson!(copy(X), scaling, clip=clip)
 function poisson!(X::AbstractArray, scaling=nothing; clip=false)
     max_intens = convert(Float64, mymax(X))
-    return apply_noise!(f_pois(scaling, max_intens), X, clip)
+    return apply_noise!(comb_pois, f_pois(scaling, max_intens), X, clip)
 end
 
 """

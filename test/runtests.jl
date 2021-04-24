@@ -132,12 +132,18 @@ end
     @test abs(std(channelview(salt_pepper(img_rand_gray_float, 1.0, salt=0.0, pepper=0.5))) -0.25) < 0.001
     @test abs(std(channelview(salt_pepper(img_rand_gray_float, 1.0, salt=0.4, pepper=0.5))) -0.05) < 0.001
 
-
 end
 
 
 
 @testset "Additive white Gaussian" begin
+
+    @test (std(imag(add_gauss(Complex.(arr_zeros), 13im))) -13) < 0.1
+    @test (std(real(add_gauss(Complex.(arr_zeros), 13im)))) == 0
+    @test (std(imag(add_gauss(Complex.(arr_zeros), 13))) -13) < 0.1
+    @test (std(real(add_gauss(Complex.(arr_zeros), 13))) -13) < 0.1
+
+
     # check array with white gaussian noise
     @test abs(std(add_gauss(arr_zeros, 13.0)) - 13.0) < 0.1
     @test abs(mean(add_gauss(arr_zeros, 1.0))) < 0.05
@@ -180,6 +186,7 @@ end
     @test abs(mean(channelview(add_gauss(img_zeros_gray_float, 0.2, 0.3))) - 0.3) < 0.05
     @test abs(mean(channelview(add_gauss(img_zeros_gray_float, 0.0, 10))) - 10.0) < 0.005
 
+    
 
 end
 
@@ -253,6 +260,12 @@ end
 
 
 @testset "Multiplicative gauss Noise" begin
+
+    @test (std(imag(mult_gauss(Complex.(arr_ones), 13im))) -13) < 0.1
+    @test (std(real(mult_gauss(Complex.(arr_ones), 13im)))) == 0
+    @test (std(imag(mult_gauss(Complex.(arr_ones), 13))) -13) < 0.1
+    @test (std(real(mult_gauss(Complex.(arr_ones), 13))) -13) < 0.1
+
 
     # check array with white gauss noise
     @test abs(std(mult_gauss(arr_zeros, 13.0)) - 0) < 0.1

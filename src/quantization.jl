@@ -7,12 +7,14 @@ function quant(x, levels, minv, maxv)
 end
 
 f_quant(levels, minv, maxv) = x -> quant(x, levels, minv, maxv)
+comb_quant(x, n) = n
+
 
 quantization(X::AbstractArray, levels; minv=0, maxv=1) = 
     quantization!(copy(X), levels, minv=minv, maxv=maxv)
 
 quantization!(X::AbstractArray, levels; minv=0, maxv=1) = 
-    apply_noise!(f_quant(levels-1, minv, maxv), X, false)
+    apply_noise!(comb_quant, f_quant(levels-1, minv, maxv), X, false)
 
 """
     quantization(X, levels; minv=0, maxv=1)
