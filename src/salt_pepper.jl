@@ -7,6 +7,10 @@ function f_sp(prob, salt_prob, salt, pepper)
     return x -> rand() < prob ? salt_or_pepper(salt_prob, salt, pepper) : x
 end
 
+@inline function comb_sp(x, n)
+    return n
+end
+
 
 function salt_pepper(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
     return salt_pepper!(copy(X), prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
@@ -21,9 +25,8 @@ function salt_pepper!(X, prob=0.1; salt_prob=0.5, salt=1, pepper=0)
     salt = convert(eltype(a), salt)
     pepper = convert(eltype(a), pepper)
 
-    return apply_noise!(f_sp(prob, salt_prob, salt, pepper), X, false)
+    return apply_noise!(comb_sp, f_sp(prob, salt_prob, salt, pepper), X, false)
 end
-
 
 
 """
@@ -39,19 +42,13 @@ The probability for pepper noise is therefore 1-`salt_prob`.
 """
 salt_pepper
 
- # function for a raw value
-f_chn_sp() = (x, n)-> n == Nothing ? x : n
-
- # function to generate noise
-noise_sp(prob, salt_prob, salt, pepper) = () -> rand() < prob ? salt_or_pepper(salt_prob, salt, pepper) : Nothing
-
 
 function salt_pepper_chn(X, prob=0.1; salt_prob=0.5, salt=1.0, pepper=0.0)
     return salt_pepper_chn!(copy(X), prob, salt_prob=salt_prob, salt=salt, pepper=pepper)
 end
 
 function salt_pepper_chn!(X, prob=0.1; salt_prob=0.5, salt=1.0, pepper=0.0)
-    return apply_noise_chn!(f_chn_sp(), noise_sp(prob, salt_prob, salt, pepper), X, false)
+    return apply_noise_chn!(comb_sp, f_sp(prob, salt_prob, salt, pepper), X, false)
 end
 
 

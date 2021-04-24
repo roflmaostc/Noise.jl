@@ -47,7 +47,7 @@ function apply_noise!(pixel_f, noise_f, X::Union{AbstractArray{Gray{T}}, Abstrac
     end
     
     function core_f(x::Gray)
-        return Gray((gray(x))) 
+        return Gray(f(gray(x))) 
     end
     
     function core_f(x)

@@ -5,11 +5,11 @@ export add_gauss, add_gauss!, add_gauss_chn, add_gauss_chn!
 
  # function for a raw value
 function f_awg(σ, μ, σ_c, μ_c)
-    f(x::Real) = randn(eltype(x)) * σ + μ
+    f(x::Real) = randn() * σ + μ
 
     function f(x::Complex{T}) where T
-        return ((randn(T) * real(σ_c) + real(μ_c)
-                + randn(T) * 1im * imag(σ_c) + 1im * imag(μ_c)))
+        return ((randn() * real(σ_c) + real(μ_c)
+                + randn() * 1im * imag(σ_c) + 1im * imag(μ_c)))
     end
     return f
 end
