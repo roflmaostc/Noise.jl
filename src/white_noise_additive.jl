@@ -1,13 +1,25 @@
 export add_gauss, add_gauss!, add_gauss_chn, add_gauss_chn!
 
 
+
+
  # function for a raw value
-function f_awg(σ, μ)
-    return x -> x + randn() * σ + μ
+function f_awg(σ, μ, σ_c, μ_c)
+    f(x::Real) = randn(eltype(x)) * σ + μ
+
+    function f(x::Complex{T}) where T
+        return ((randn(T) * real(σ_c) + real(μ_c)
+                + randn(T) * 1im * imag(σ_c) + 1im * imag(μ_c)))
+    end
+    return f
+end
+
+@inline function comb_add_gauss(x, n)
+    return x + n
 end
 
 add_gauss(X, σ=0.1, μ=0; clip=false) = add_gauss!(copy(X), σ, μ, clip=clip)
-add_gauss!(X, σ=0.1, μ=0; clip=false) = apply_noise!(f_awg(σ, μ), X, clip)
+add_gauss!(X, σ=0.1, μ=0; clip=false) = apply_noise!(comb_add_gauss, f_awg(σ, μ, complex_copy(σ), complex_copy(μ)), X, clip)
 """
     add_gauss(X; clip=false[, σ=0.1, μ=0.0])
 
@@ -21,14 +33,9 @@ If `X` is a RGB{Normed} or Gray{Normed} image, then the values will be automatic
 add_gauss
 
 
- # function for a raw value
-f_chn_awg() = (x, n)-> x + n
- # function to generate noise
-noise_awg(σ, μ) = () -> randn() * σ + μ
-
 
 add_gauss_chn(X, σ=0.1, μ=0; clip=false) = add_gauss_chn!(copy(X), σ, μ, clip=clip)
-add_gauss_chn!(X, σ=0.1, μ=0; clip=false) = apply_noise_chn!(f_chn_awg(), noise_awg(σ, μ), X, clip)
+add_gauss_chn!(X, σ=0.1, μ=0; clip=false) = apply_noise_chn!(comb_add_gauss, f_awg(σ, μ, complex_copy(σ), complex_copy(μ)), X, clip)
 
 """
     add_gauss_chn(X; clip=false[, σ=0.1, μ=0.0])

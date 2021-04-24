@@ -5,6 +5,17 @@ using Random
 using ImageCore
 using ColorVectorSpace
 
+
+@testset "Util functions" begin
+    x = 1f0
+    @test 1f0 + 1f0im == Noise.complex_copy(x) 
+    
+    x = 12f0 + 13f0im
+    @test 12f0 + 13f0im == Noise.complex_copy(x) 
+end
+
+
+
 Random.seed!(42)
 tpl = (1000, 1000)
 arr = rand(Float64, tpl)

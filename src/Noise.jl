@@ -3,6 +3,16 @@ using PoissonRandom
 using Random
 using ImageCore
 
+"""
+    complex_copy(x)
+
+If `x` is real, it returns `x + im * x`
+If `x` is complex, it returns `x`,
+"""
+complex_copy(a::T) where T = (a + 1im * a)::Complex{T}
+complex_copy(a::Complex{T}) where T= a::Complex{T} 
+
+
  # clipping a single value
 function clip_v(x)
     return max(0.0, min(1.0, x))
@@ -24,38 +34,39 @@ function max_rgb(X::AbstractArray{RGB{T}}) where T
 end
 
 
-function apply_noise!(pixel_f, X::Union{AbstractArray{Gray{T}}, AbstractArray{RGB{T}}, 
+function apply_noise!(pixel_f, noise_f, X::Union{AbstractArray{Gray{T}}, AbstractArray{RGB{T}}, 
             AbstractArray{T}}, clip) where T
-    
+   
+    f(x) = pixel_f(x, noise_f(x))
      # defining the core functions inside here, gives 6x speed improvement
      # core functions non clipping
     function core_f(x::RGB)
-        return RGB(pixel_f(red(x)), 
-                   pixel_f(green(x)),
-                   pixel_f(blue(x)))
+        return RGB(f(red(x)), 
+                   f(green(x)),
+                   f(blue(x)))
     end
     
     function core_f(x::Gray)
-        return Gray(pixel_f(gray(x))) 
+        return Gray((gray(x))) 
     end
     
     function core_f(x)
-        return pixel_f(x)
+        return f(x)
     end
     
     
     function core_f_clip(x::RGB)
-        return RGB(clip_v(pixel_f(red(x))), 
-                   clip_v(pixel_f(green(x))),
-                   clip_v(pixel_f(blue(x))))
+        return RGB(clip_v(f(red(x))), 
+                   clip_v(f(green(x))),
+                   clip_v(f(blue(x))))
     end
     
     function core_f_clip(x::Gray)
-        return Gray(clip_v(pixel_f(gray(x))))
+        return Gray(clip_v(f(gray(x))))
     end
     
     function core_f_clip(x)
-        return clip_v(pixel_f(x))
+        return clip_v(f(x))
     end
     # if normed clip the values to be in [0, 1]
     if T <: Normed || clip
@@ -75,16 +86,16 @@ end
 function apply_noise_chn!(pixel_f, noise_f, X::AbstractArray{RGB{T}}, clip) where T
     if T <: Normed || clip
         for i in eachindex(X)
-            n = noise_f()
             a = X[i]
+            n = noise_f(red(a)*0)
             X[i] = RGB(clip_v(pixel_f(red(a), n)), 
                        clip_v(pixel_f(green(a), n)), 
                        clip_v(pixel_f(blue(a), n))) 
         end
     else
         for i in eachindex(X)
-            n = noise_f()
             a = X[i]
+            n = noise_f(red(a)*0)
             X[i] = RGB(pixel_f(red(a), n), 
                        pixel_f(green(a), n), 
                        pixel_f(blue(a), n)) 

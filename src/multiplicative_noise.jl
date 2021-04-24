@@ -1,11 +1,13 @@
 export mult_gauss, mult_gauss!, mult_gauss_chn, mult_gauss_chn!
 
- # function for a raw value
-function f_mg(σ, μ)
-    return x -> x * (randn() * σ + μ)
+
+@inline function comb_mult_gauss(x, n)
+    return x * n
 end
 
-mult_gauss!(X, σ=0.1, μ=1; clip=false) = apply_noise!(f_mg(σ, μ), X, clip)
+
+
+mult_gauss!(X, σ=0.1, μ=1; clip=false) = apply_noise!(comb_mult_gauss, f_awg(σ, μ, complex_copy(σ), complex_copy(μ)), X, clip)
 mult_gauss(X, σ=0.1, μ=1; clip=false) = mult_gauss!(copy(X), σ, μ, clip=clip)
 
 """
@@ -21,11 +23,9 @@ mult_gauss
 
  # function for a raw value
 f_chn_mg() = (x, n)-> x * n
- # function to generate noise
-noise_mg(σ, μ) = () -> randn() * σ + μ
 
 mult_gauss_chn(X, σ=0.1, μ=1; clip=false) = mult_gauss_chn!(copy(X), σ, μ, clip=clip)
-mult_gauss_chn!(X, σ=0.1, μ=1; clip=false) = apply_noise_chn!(f_chn_mg(), noise_mg(σ, μ), X, clip)
+mult_gauss_chn!(X, σ=0.1, μ=1; clip=false) = apply_noise_chn!(comb_mult_gauss, f_awg(σ, μ, complex_copy(σ), complex_copy(μ)), X, clip)
 
 """
     mult_gauss_chn(X; clip=false[, σ=0.1, μ=0.0])
