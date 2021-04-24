@@ -15,7 +15,7 @@ complex_copy(a::Complex{T}) where T= a::Complex{T}
 
  # clipping a single value
 function clip_v(x)
-    return max(0.0, min(1.0, x))
+    return max(0, min(1, x))
 end
 
 function clip_v(x, minv, maxv)
@@ -70,11 +70,11 @@ function apply_noise!(pixel_f, noise_f, X::Union{AbstractArray{Gray{T}}, Abstrac
     end
     # if normed clip the values to be in [0, 1]
     if T <: Normed || clip
-        for i in eachindex(X)
+        @inbounds for i in eachindex(X)
             X[i] = core_f_clip(X[i])
         end
     else
-        for i in eachindex(X)
+        @inbounds for i in eachindex(X)
             X[i] = core_f(X[i])
         end
     end
@@ -85,7 +85,7 @@ end
  # function which use exactly the same noise for each color channel of a pixel
 function apply_noise_chn!(pixel_f, noise_f, X::AbstractArray{RGB{T}}, clip) where T
     if T <: Normed || clip
-        for i in eachindex(X)
+        @inbounds for i in eachindex(X)
             a = X[i]
             n = noise_f(red(a)*0)
             X[i] = RGB(clip_v(pixel_f(red(a), n)), 
@@ -93,7 +93,7 @@ function apply_noise_chn!(pixel_f, noise_f, X::AbstractArray{RGB{T}}, clip) wher
                        clip_v(pixel_f(blue(a), n))) 
         end
     else
-        for i in eachindex(X)
+        @inbounds for i in eachindex(X)
             a = X[i]
             n = noise_f(red(a)*0)
             X[i] = RGB(pixel_f(red(a), n), 
