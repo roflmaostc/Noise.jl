@@ -11,12 +11,11 @@ It has more detailed explanations of the methods and contains examples for data 
 
 
 ## Installation
-`Noise.jl` is available for all version equal or above Julia 1.0. It is mainly tested under Linux but should also work on Windows.
+`Noise.jl` is available for all version equal or above Julia 1.3.
 It can be installed with the following command
 
 ```julia
-julia> Pkt.update()
-julia> Pkg.add("Noise")
+julia> ] add Noise
 ```
     
 ## Usage
@@ -25,7 +24,7 @@ In general, if images like `Array{RGB{<:Normed}` or `Array{Gray{<:Normed}}` are 
 The methods also work for normal Arrays like `Array{<:Number}`.
 At the moment five different types of noise are possible: Additive and multiplicative Gaussian, Salt and Pepper, Poisson and Quantization noise.
 
-```@example
+```julia
 using Noise, TestImages, Images, Plots
 img = testimage("fabio_gray_256")
 img_color = testimage("fabio_color_256")
