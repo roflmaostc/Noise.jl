@@ -25,8 +25,6 @@ choose `μ` or `σ` complex.
 """
 mult_gauss
 
- # function for a raw value
-f_chn_mg() = (x, n)-> x * n
 
 mult_gauss_chn(X, σ=0.1, μ=1; clip=false) = mult_gauss_chn!(copy(X), σ, μ, clip=clip)
 mult_gauss_chn!(X, σ=0.1, μ=1; clip=false) = apply_noise_chn!(comb_mult_gauss, f_awg(σ, μ, complex_copy(σ), complex_copy(μ)), X, clip)
