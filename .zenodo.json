@@ -1,0 +1,12 @@
+{
+    "description": "", 
+    "license": "MIT", 
+    "title": "Noise.jl - Adding Noise in Julia", 
+    "creators": [
+        {
+            "orcid": "0000-0001-8763-2948", 
+            "affiliation": "Friedrich Schiller University of Jena, Leibniz-Institut für Photonische Technologien eV: Jena, Thüringen, DE", 
+            "name": "Felix Wechsler"
+        }
+    ]
+}
