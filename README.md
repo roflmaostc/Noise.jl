@@ -63,6 +63,17 @@ This 1D array is affected by a additive gaussian white noise (![\sigma=0.1, \mu=
 ![](images/series_index.png)
 
 
+## Cite
+If you use this package in an academic work, please cite us!
+See on the right side the *Cite this repository*:
+```
+@misc{Wechsler_Noise.jl__Adding,
+author = {Wechsler, Felix},
+title = {Noise.jl - Adding Noise in Julia},
+url = {https://github.com/roflmaostc/Noise.jl}
+}
+```
+
 ## Development
 
 The package is developed at [GitHub](https://www.github.com/roflmaostc/Noise.jl).  There
