@@ -3,7 +3,7 @@ Noise.jl is a Julia package to add different kinds of noise to a digital signal 
 
 | **Documentation**                       | **Build Status**                          | **Code Coverage**               |  **DOI** |
 |:---------------------------------------:|:-----------------------------------------:|:-------------------------------:|:----:|
-| [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][CI-img]][CI-url] | [![][codecov-img]][codecov-url] | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5146369.svg)](https://doi.org/10.5281/zenodo.5146369) |
+| [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][CI-img]][CI-url] | [![][codecov-img]][codecov-url] | [![DOI](https://zenodo.org/badge/254694216.svg)](https://zenodo.org/badge/latestdoi/254694216) |
 
 ## Documentation
 The complete manual of Noise.jl is available at [the documentation page][docs-stable-url].
