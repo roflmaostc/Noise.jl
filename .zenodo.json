@@ -1,5 +1,5 @@
 {
-    "description": "", 
+    "description": "A package to add different kinds of noise to arrays.", 
     "license": "MIT", 
     "title": "Noise.jl - Adding Noise in Julia", 
     "creators": [
