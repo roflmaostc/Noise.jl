@@ -8,12 +8,19 @@ ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 PoissonRandom = "e409e4f3-bfea-5376-8464-e040bb5c01ab"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
+[weakdeps]
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
+[extensions]
+UnitfulExt = "Unitful"
+
 [compat]
 ImageCore = "0.5, 0.6, 0.7, 0.8, 0.9"
 PoissonRandom = "0.4"
 julia = "1"
 
 [extras]
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 ColorVectorSpace = "c3611d14-8923-5661-9e6a-0046d554d3a4"
 ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
