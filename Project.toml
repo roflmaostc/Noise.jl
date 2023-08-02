@@ -1,7 +1,7 @@
 name = "Noise"
 uuid = "81d43f40-5267-43b7-ae1c-8b967f377efa"
 authors = ["Felix Wechsler <fxw+github@mailbox.org"]
-version = "0.3.2"
+version = "0.3.3"
 
 [deps]
 ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
