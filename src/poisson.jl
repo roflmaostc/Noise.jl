@@ -24,7 +24,7 @@ function poisson!(X::AbstractArray, scaling=nothing; clip=false)
 end
 
 """
-    poisson(X; scaling=nothing, clip=false)
+    poisson(X, scaling=nothing; clip=false)
 
 Returns the array `X` affected by Poisson noise. 
 At every position the Poisson noise affects the intensity individually 
